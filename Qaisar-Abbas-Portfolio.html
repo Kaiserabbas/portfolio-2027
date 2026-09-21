@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qaisar Abbas | Landscape Engineer & AI Solutions Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; color: #1a202c; }
+        
+        /* Premium Gradient System */
+        .gradient-primary { background: linear-gradient(135deg, #1a7659 0%, #0d7a6b 50%, #0ea5e9 100%); }
+        .gradient-text { background: linear-gradient(135deg, #1a7659 0%, #0d7a6b 50%, #0ea5e9 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .gradient-accent { background: linear-gradient(135deg, #f97316 0%, #f59e0b 100%); }
+        
+        /* Navigation */
+        nav { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(0, 0, 0, 0.05); }
+        
+        .hero-split { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        @media (max-width: 768px) { .hero-split { grid-template-columns: 1fr; gap: 2rem; } }
+        
+        .project-card { transition: all 0.4s ease; border: 1px solid #e2e8f0; border-radius: 16px; background: white; }
+        .project-card:hover { transform: translateY(-12px); box-shadow: 0 30px 60px -12px rgba(26, 118, 89, 0.2); border-color: #1a7659; }
+        
+        .sector-badge { display: inline-block; padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.85rem; font-weight: 600; }
+        .sector-landscape { background: rgba(26, 118, 89, 0.12); color: #1a7659; }
+        .sector-it { background: rgba(14, 165, 233, 0.12); color: #0369a1; }
+        
+        .active-filter { background: linear-gradient(135deg, #1a7659 0%, #0ea5e9 100%); color: white; box-shadow: 0 10px 25px -5px rgba(26, 118, 89, 0.3); }
+        .filter-btn { transition: all 0.3s ease; }
+        
+        .skill-bar { position: relative; height: 10px; border-radius: 10px; background: #e2e8f0; overflow: hidden; }
+        .skill-fill { height: 100%; background: linear-gradient(90deg, #1a7659 0%, #0ea5e9 100%); border-radius: 10px; }
+        
+        .testimonial-card { background: white; border-left: 5px solid #1a7659; padding: 2.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); }
+        
+        .cta-btn { background: linear-gradient(135deg, #1a7659 0%, #0ea5e9 100%); color: white; padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none; display: inline-block; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 10px 25px -5px rgba(26, 118, 89, 0.3); }
+        .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 15px 35px -5px rgba(26, 118, 89, 0.4); }
+        
+        .experience-timeline { position: relative; padding-left: 2rem; }
+        .experience-timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: linear-gradient(180deg, #1a7659 0%, #0ea5e9 100%); border-radius: 2px; }
+        
+        .experience-item { position: relative; margin-bottom: 2.5rem; padding: 1.5rem; background: white; border-radius: 12px; border-left: 3px solid #1a7659; }
+        .experience-item::before { content: ''; position: absolute; left: -11.5px; top: 8px; width: 16px; height: 16px; background: #1a7659; border: 3px solid white; border-radius: 50%; }
+        
+        .cert-card { background: white; padding: 1.5rem; border-radius: 12px; border-top: 3px solid #f97316; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); transition: all 0.3s ease; }
+        .cert-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1); }
+        
+        .stat-card { background: white; padding: 2rem; border-radius: 16px; text-align: center; border: 1px solid #e2e8f0; }
+        
+        .section-title { font-size: 2.5rem; font-weight: 700; color: #1a202c; position: relative; padding-bottom: 1rem; }
+        .section-title::after { content: ''; position: absolute; bottom: 0; left: 0; width: 60px; height: 4px; background: linear-gradient(90deg, #1a7659 0%, #0ea5e9 100%); border-radius: 2px; }
+        
+        .fade-in { animation: fadeIn 0.6s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .label-tech { display: inline-block; padding: 0.5rem 1rem; background: #eff6ff; color: #0369a1; border-radius: 6px; font-size: 0.875rem; font-weight: 600; margin-right: 0.5rem; margin-bottom: 0.5rem; }
+        .label-landscape { display: inline-block; padding: 0.5rem 1rem; background: #f0fdf4; color: #1a7659; border-radius: 6px; font-size: 0.875rem; font-weight: 600; margin-right: 0.5rem; margin-bottom: 0.5rem; }
+        
+        .year-badge { display: inline-block; background: linear-gradient(135deg, #1a7659 0%, #0ea5e9 100%); color: white; padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.875rem; font-weight: 700; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/98 backdrop-blur-xl border-b border-gray-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold gradient-text">Qaisar Abbas</div>
+            <ul class="hidden md:flex gap-8 text-sm font-medium text-gray-700">
+                <li><a href="#projects" class="hover:text-gray-900 transition relative group">Projects<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300"></span></a></li>
+                <li><a href="#skills" class="hover:text-gray-900 transition relative group">Skills<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300"></span></a></li>
+                <li><a href="#about" class="hover:text-gray-900 transition relative group">About<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300"></span></a></li>
+                <li><a href="#contact" class="hover:text-gray-900 transition relative group">Contact<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300"></span></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-white py-24 px-4">
+        <div class="max-w-7xl mx-auto hero-split">
+            <div class="fade-in">
+                <h1 class="text-6xl font-bold mb-6 text-gray-900 leading-tight">
+                    Bridging<br><span class="gradient-text">Horticulture & Technology</span>
+                </h1>
+                <p class="text-xl text-gray-700 mb-10 leading-relaxed">
+                    15+ years of landscape engineering expertise combined with cutting-edge AI-powered web solutions. 
+                    I design sustainable spaces and build intelligent systems that transform how businesses operate.
+                </p>
+                <div class="flex gap-4 flex-wrap mb-12">
+                    <a href="#projects" class="cta-btn">View My Work</a>
+                    <a href="#contact" class="px-8 py-3 border-2 border-gray-300 rounded-full font-semibold text-gray-700 hover:border-gray-900 hover:bg-gray-50 transition">Get in Touch</a>
+                </div>
+                <div class="grid grid-cols-2 gap-8">
+                    <div class="stat-card">
+                        <div class="text-4xl font-bold gradient-text mb-2">15+</div>
+                        <p class="text-gray-600 font-medium">Years in Landscaping</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="text-4xl font-bold gradient-text mb-2">50+</div>
+                        <p class="text-gray-600 font-medium">Projects Completed</p>
+                    </div>
+                </div>
+            </div>
+            <div class="fade-in" style="animation-delay: 0.2s;">
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-8 text-center border-2 border-green-200 hover:shadow-lg transition">
+                        <i class="fas fa-leaf text-5xl text-green-600 mb-4"></i>
+                        <p class="font-bold text-gray-900">Landscape Design</p>
+                        <p class="text-xs text-gray-600 mt-2">Biophilic & Sustainable</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl p-8 text-center border-2 border-blue-200 hover:shadow-lg transition">
+                        <i class="fas fa-code text-5xl text-blue-600 mb-4"></i>
+                        <p class="font-bold text-gray-900">Web Development</p>
+                        <p class="text-xs text-gray-600 mt-2">React & Modern Tech</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-purple-50 to-violet-50 rounded-xl p-8 text-center border-2 border-purple-200 hover:shadow-lg transition">
+                        <i class="fas fa-robot text-5xl text-purple-600 mb-4"></i>
+                        <p class="font-bold text-gray-900">AI Agents</p>
+                        <p class="text-xs text-gray-600 mt-2">Claude & Automation</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl p-8 text-center border-2 border-orange-200 hover:shadow-lg transition">
+                        <i class="fas fa-database text-5xl text-orange-600 mb-4"></i>
+                        <p class="font-bold text-gray-900">Databases</p>
+                        <p class="text-xs text-gray-600 mt-2">Architecture & Design</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 px-4 bg-gray-50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="section-title mb-4">Featured Projects</h2>
+            <p class="text-center text-gray-600 mb-16 text-lg">Explore my work across both landscape engineering and technology solutions</p>
+            
+            <!-- Filter Buttons -->
+            <div class="flex justify-center gap-4 mb-16 flex-wrap">
+                <button onclick="filterProjects('all')" class="filter-btn active-filter px-6 py-3 rounded-full font-semibold transition" data-filter="all">
+                    <i class="fas fa-th mr-2"></i>All Projects
+                </button>
+                <button onclick="filterProjects('landscape')" class="filter-btn px-6 py-3 rounded-full font-semibold border-2 border-green-600 text-green-600 hover:bg-green-50 transition" data-filter="landscape">
+                    <i class="fas fa-leaf mr-2"></i>Landscape Engineering
+                </button>
+                <button onclick="filterProjects('it')" class="filter-btn px-6 py-3 rounded-full font-semibold border-2 border-blue-600 text-blue-600 hover:bg-blue-50 transition" data-filter="it">
+                    <i class="fas fa-code mr-2"></i>Web & AI Solutions
+                </button>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
+                <!-- Landscape Projects -->
+                <div class="project-card project-landscape fade-in">
+                    <img src="https://images.unsplash.com/photo-1560493676-04071c5f467b?w=500&h=300&fit=crop" alt="KAHF Greens" class="w-full h-48 object-cover rounded-t-lg">
+                    <div class="p-6">
+                        <span class="sector-badge sector-landscape">Landscape Engineering</span>
+                        <h3 class="text-xl font-bold mt-4 mb-2">KAHF Greens Commercial Redesign</h3>
+                        <p class="text-gray-600 mb-4">Complete landscape transformation for high-traffic commercial properties in Dubai, incorporating biophilic design principles and modern irrigation systems.</p>
+                        <div class="space-y-2 text-sm text-gray-700 mb-4">
+                            <p><strong>Client:</strong> KAHF Greens, Dubai</p>
+                            <p><strong>Duration:</strong> 6 months</p>
+                            <p><strong>Result:</strong> 40% water savings, enhanced aesthetics</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded text-xs font-semibold">Biophilic Design</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded text-xs font-semibold">Irrigation Systems</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card project-landscape fade-in" style="animation-delay: 0.1s;">
+                    <img src="https://images.unsplash.com/photo-1584622181563-430f63602d4b?w=500&h=300&fit=crop" alt="Green Acres" class="w-full h-48 object-cover rounded-t-lg">
+                    <div class="p-6">
+                        <span class="sector-badge sector-landscape">Landscape Engineering</span>
+                        <h3 class="text-xl font-bold mt-4 mb-2">Green Acres Project Management</h3>
+                        <p class="text-gray-600 mb-4">Led cross-functional teams through full-cycle landscape development from sales phase to implementation, managing budgets and timelines across multiple properties.</p>
+                        <div class="space-y-2 text-sm text-gray-700 mb-4">
+                            <p><strong>Client:</strong> Green Acres Landscape, Dubai</p>
+                            <p><strong>Duration:</strong> 2 years</p>
+                            <p><strong>Result:</strong> 95% on-time delivery</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded text-xs font-semibold">Project Management</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded text-xs font-semibold">Team Leadership</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card project-landscape fade-in" style="animation-delay: 0.2s;">
+                    <img src="https://images.unsplash.com/photo-1530522455947-a307b6dad9a1?w=500&h=300&fit=crop" alt="Hamza Maroof" class="w-full h-48 object-cover rounded-t-lg">
+                    <div class="p-6">
+                        <span class="sector-badge sector-landscape">Landscape Engineering</span>
+                        <h3 class="text-xl font-bold mt-4 mb-2">Hamza Maroof Garden Center</h3>
+                        <p class="text-gray-600 mb-4">Comprehensive landscape design and project supervision for premium garden center, including contract management and client relations strategy.</p>
+                        <div class="space-y-2 text-sm text-gray-700 mb-4">
+                            <p><strong>Client:</strong> Hamza Maroof Garden Center LLC</p>
+                            <p><strong>Duration:</strong> 2 years</p>
+                            <p><strong>Result:</strong> Premium client retention rate</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded text-xs font-semibold">Design</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded text-xs font-semibold">Supervision</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IT/Web Projects -->
+                <div class="project-card project-it fade-in" style="animation-delay: 0.3s;">
+                    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500&h=300&fit=crop" alt="Smart Irrigation Dashboard" class="w-full h-48 object-cover rounded-t-lg">
+                    <div class="p-6">
+                        <span class="sector-badge sector-it">Web Application</span>
+                        <h3 class="text-xl font-bold mt-4 mb-2">Smart Irrigation Management System</h3>
+                        <p class="text-gray-600 mb-4">AI-powered web application for real-time monitoring and control of irrigation systems, with predictive analytics for water optimization.</p>
+                        <div class="space-y-2 text-sm text-gray-700 mb-4">
+                            <p><strong>Tech Stack:</strong> React, Node.js, MongoDB</p>
+                            <p><strong>Features:</strong> Real-time monitoring, AI predictions</p>
+                            <p><strong>Impact:</strong> 35% water reduction</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded text-xs font-semibold">React</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded text-xs font-semibold">AI Integration</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card project-it fade-in" style="animation-delay: 0.4s;">
+                    <img src="https://images.unsplash.com/photo-1553721033-cf3101ddd4c7?w=500&h=300&fit=crop" alt="Project Management AI" class="w-full h-48 object-cover rounded-t-lg">
+                    <div class="p-6">
+                        <span class="sector-badge sector-it">AI Agent</span>
+                        <h3 class="text-xl font-bold mt-4 mb-2">Landscape Project AI Agent</h3>
+                        <p class="text-gray-600 mb-4">Custom Claude-powered AI agent that automates project proposals, client communication, and workflow management for landscape companies.</p>
+                        <div class="space-y-2 text-sm text-gray-700 mb-4">
+                            <p><strong>Tools Used:</strong> Claude API, Cursor, Anthropic SDK</p>
+                            <p><strong>Functions:</strong> Proposal generation, scheduling, budgeting</p>
+                            <p><strong>Result:</strong> 60% time savings on admin tasks</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded text-xs font-semibold">Claude API</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded text-xs font-semibold">Automation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card project-it fade-in" style="animation-delay: 0.5s;">
+                    <img src="https://images.unsplash.com/photo-1516534775068-bb64e614bb10?w=500&h=300&fit=crop" alt="Client Portal" class="w-full h-48 object-cover rounded-t-lg">
+                    <div class="p-6">
+                        <span class="sector-badge sector-it">Web Application</span>
+                        <h3 class="text-xl font-bold mt-4 mb-2">Landscape Client Portal</h3>
+                        <p class="text-gray-600 mb-4">Full-stack web application connecting landscapers with clients, featuring project tracking, progress visualization, and interactive design mockups.</p>
+                        <div class="space-y-2 text-sm text-gray-700 mb-4">
+                            <p><strong>Tech Stack:</strong> React, Firebase, Tailwind CSS</p>
+                            <p><strong>Features:</strong> Real-time updates, file sharing, timeline view</p>
+                            <p><strong>Users:</strong> 50+ active clients</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded text-xs font-semibold">React</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded text-xs font-semibold">Firebase</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card project-it fade-in" style="animation-delay: 0.6s;">
+                    <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?w=500&h=300&fit=crop" alt="Mobile App" class="w-full h-48 object-cover rounded-t-lg">
+                    <div class="p-6">
+                        <span class="sector-badge sector-it">Mobile App</span>
+                        <h3 class="text-xl font-bold mt-4 mb-2">On-Site Plant Health Monitor</h3>
+                        <p class="text-gray-600 mb-4">Android application for on-site monitoring of plant health using environmental sensors, with AI-powered diagnostic recommendations.</p>
+                        <div class="space-y-2 text-sm text-gray-700 mb-4">
+                            <p><strong>Platform:</strong> Android (Kotlin)</p>
+                            <p><strong>Features:</strong> Sensor integration, AI diagnostics</p>
+                            <p><strong>Status:</strong> Beta testing with clients</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded text-xs font-semibold">Android</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded text-xs font-semibold">Sensors</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="py-24 px-4 bg-gray-50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="section-title mb-4">Services I Offer</h2>
+            <p class="text-center text-gray-600 mb-16 text-lg">Tailored solutions combining landscape expertise with AI-powered technology</p>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="border-2 border-green-200 rounded-lg p-8 hover:shadow-lg transition">
+                    <i class="fas fa-tree text-4xl text-green-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Landscape Redesign</h3>
+                    <p class="text-gray-600">Complete landscape transformations incorporating biophilic design, sustainable agriculture, and smart irrigation systems.</p>
+                </div>
+
+                <div class="border-2 border-blue-200 rounded-lg p-8 hover:shadow-lg transition">
+                    <i class="fas fa-robot text-4xl text-blue-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Custom AI Agents</h3>
+                    <p class="text-gray-600">Build intelligent systems powered by Claude API to automate business workflows, client communication, and project management.</p>
+                </div>
+
+                <div class="border-2 border-purple-200 rounded-lg p-8 hover:shadow-lg transition">
+                    <i class="fas fa-chart-line text-4xl text-purple-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Web Applications</h3>
+                    <p class="text-gray-600">Full-stack web apps for project tracking, client portals, and data visualization dashboards with real-time monitoring.</p>
+                </div>
+
+                <div class="border-2 border-orange-200 rounded-lg p-8 hover:shadow-lg transition">
+                    <i class="fas fa-mobile-alt text-4xl text-orange-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Mobile Applications</h3>
+                    <p class="text-gray-600">Android & iOS apps for on-site monitoring, sensor integration, and field management with AI-powered analytics.</p>
+                </div>
+
+                <div class="border-2 border-red-200 rounded-lg p-8 hover:shadow-lg transition">
+                    <i class="fas fa-database text-4xl text-red-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Database Architecture</h3>
+                    <p class="text-gray-600">Design and implement scalable database systems, data pipelines, and backend infrastructure for complex applications.</p>
+                </div>
+
+                <div class="border-2 border-indigo-200 rounded-lg p-8 hover:shadow-lg transition">
+                    <i class="fas fa-cogs text-4xl text-indigo-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Workflow Automation</h3>
+                    <p class="text-gray-600">Streamline business operations with AI-powered automation, reducing manual tasks and improving efficiency across teams.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 px-4 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="section-title mb-16">Skills & Expertise</h2>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Landscape Skills -->
+                <div>
+                    <h3 class="text-2xl font-bold mb-8 text-green-700">Landscape & Agriculture</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-800">Project Planning & Management</span>
+                                <span class="text-sm text-gray-600">Expert</span>
+                            </div>
+                            <div class="skill-bar"><div class="skill-fill" style="width: 95%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-800">Irrigation Systems & Troubleshooting</span>
+                                <span class="text-sm text-gray-600">Expert</span>
+                            </div>
+                            <div class="skill-bar"><div class="skill-fill" style="width: 93%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-800">Biophilic Design</span>
+                                <span class="text-sm text-gray-600">Advanced</span>
+                            </div>
+                            <div class="skill-bar"><div class="skill-fill" style="width: 88%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-800">Sustainable Agriculture</span>
+                                <span class="text-sm text-gray-600">Expert</span>
+                            </div>
+                            <div class="skill-bar"><div class="skill-fill" style="width: 92%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-800">AutoCAD & Diagrams</span>
+                                <span class="text-sm text-gray-600">Advanced</span>
+                            </div>
+                            <div class="skill-bar"><div class="skill-fill" style="width: 85%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-800">Team Leadership</span>
+                                <span class="text-sm text-gray-600">Expert</span>
+                            </div>
+                            <div class="skill-bar"><div class="skill-fill" style="width: 90%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IT Skills -->
+                <div>
+                    <h3 class="text-2xl font-bold mb-8 text-blue-700">Technology & Development</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-800">React & Frontend Development</span>
+                                <span class="text-sm text-gray-600">Advanced</span>
+                            </div>
+                            <div class="skill-bar"><div class="skill-fill" style="width: 88%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-800">Claude API & AI Integration</span>
+                                <span class="text-sm text-gray-600">Advanced</span>
+                            </div>
+                            <div class="skill-bar"><div class="skill-fill" style="width: 90%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-800">Node.js & Backend</span>
+                                <span class="text-sm text-gray-600">Intermediate</span>
+                            </div>
+                            <div class="skill-bar"><div class="skill-fill" style="width: 75%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-800">Database Design & SQL</span>
+                                <span class="text-sm text-gray-600">Advanced</span>
+                            </div>
+                            <div class="skill-bar"><div class="skill-fill" style="width: 87%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-800">Android Development</span>
+                                <span class="text-sm text-gray-600">Intermediate</span>
+                            </div>
+                            <div class="skill-bar"><div class="skill-fill" style="width: 78%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-800">AI Tools (Cursor, Anthropic, etc.)</span>
+                                <span class="text-sm text-gray-600">Expert</span>
+                            </div>
+                            <div class="skill-bar"><div class="skill-fill" style="width: 92%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tech Stack -->
+            <div class="mt-16 bg-white rounded-lg p-8 border-2 border-gray-200">
+                <h3 class="text-2xl font-bold mb-8 text-center">Technology Stack</h3>
+                <div class="grid md:grid-cols-4 gap-6 text-center">
+                    <div>
+                        <p class="font-semibold text-gray-800 mb-3">Frontend</p>
+                        <div class="flex flex-wrap gap-2 justify-center">
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded text-sm font-medium">React</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded text-sm font-medium">Tailwind</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded text-sm font-medium">Vite</span>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800 mb-3">Backend</p>
+                        <div class="flex flex-wrap gap-2 justify-center">
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded text-sm font-medium">Node.js</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded text-sm font-medium">Express</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded text-sm font-medium">Firebase</span>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800 mb-3">AI & Automation</p>
+                        <div class="flex flex-wrap gap-2 justify-center">
+                            <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded text-sm font-medium">Claude API</span>
+                            <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded text-sm font-medium">Cursor</span>
+                            <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded text-sm font-medium">Anthropic</span>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800 mb-3">Design & Tools</p>
+                        <div class="flex flex-wrap gap-2 justify-center">
+                            <span class="px-3 py-1 bg-orange-100 text-orange-700 rounded text-sm font-medium">Canva Pro</span>
+                            <span class="px-3 py-1 bg-orange-100 text-orange-700 rounded text-sm font-medium">Photoshop</span>
+                            <span class="px-3 py-1 bg-orange-100 text-orange-700 rounded text-sm font-medium">AutoCAD</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 px-4 bg-white">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="section-title mb-12">About Me</h2>
+            <div class="prose max-w-none">
+                <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    I'm an innovative Landscape & Agricultural Engineer with 15+ years of proven expertise in the UAE market. My career is defined by a unique ability to blend traditional horticulture with modern technology and AI-driven solutions.
+                </p>
+                <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    What sets me apart is my dual mastery: I design and execute sustainable, high-end commercial and residential landscapes that create lasting impressions, while simultaneously building intelligent web and mobile applications that streamline operations and introduce clients to cutting-edge agritech solutions.
+                </p>
+                <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    I'm adept at full-cycle project planning, cross-functional team leadership, and leveraging modern digital tools—from AI-driven corporate branding to front-end web development—to enhance client presentations and streamline operations. My background includes introducing smart agricultural technologies and optimizing irrigation systems for arid climates.
+                </p>
+                <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    Whether managing landscape redesigns for high-traffic restaurants, building AI agents that automate business workflows, or developing mobile apps for real-time plant health monitoring, I bring technical depth and creative problem-solving to every project.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 mt-12">
+                <div class="text-center">
+                    <div class="text-4xl font-bold gradient-text mb-2">15+</div>
+                    <p class="text-gray-600 font-medium">Years in Landscaping</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold gradient-text mb-2">50+</div>
+                    <p class="text-gray-600 font-medium">Projects Delivered</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold gradient-text mb-2">100%</div>
+                    <p class="text-gray-600 font-medium">Client Satisfaction</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-24 px-4 bg-gray-50">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-2">What Clients Say</h2>
+                <div class="w-16 h-1 bg-gradient-primary rounded-full mx-auto mt-4"></div>
+            </div>
+            <div class="space-y-8">
+                <div class="testimonial-card">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center font-bold text-green-700 mr-4">RA</div>
+                        <div>
+                            <p class="font-bold text-gray-800">Rami Ahmed</p>
+                            <p class="text-sm text-gray-600">Manager, KAHF Greens</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic">"Qaisar transformed our entire landscape operation. His expertise in biophilic design combined with smart irrigation solutions has not only improved our aesthetics but also reduced our water consumption by 40%. His AI project agent also saves us hours on administrative work weekly."</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center font-bold text-blue-700 mr-4">SA</div>
+                        <div>
+                            <p class="font-bold text-gray-800">Sarah Al Mansoori</p>
+                            <p class="text-sm text-gray-600">CTO, Dubai Tech Startup</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic">"Working with Qaisar on our smart agriculture platform was seamless. His combination of domain knowledge and technical expertise ensured we built something that actually solves real-world problems. The AI integration he implemented exceeded our expectations."</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-purple-200 rounded-full flex items-center justify-center font-bold text-purple-700 mr-4">MJ</div>
+                        <div>
+                            <p class="font-bold text-gray-800">Mohammed Jassim</p>
+                            <p class="text-sm text-gray-600">Owner, Green Acres Landscape</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic">"The client portal Qaisar built has been a game-changer. Our clients love the real-time updates and visual mockups, and it's dramatically improved communication. His attention to both UX and the practical needs of landscaping work is outstanding."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="py-20 px-4 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="section-title mb-12">Education</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-gradient-to-br from-blue-50 to-cyan-50 p-8 rounded-xl border-l-4 border-blue-600">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">MSc Hons Agriculture</h3>
+                            <p class="text-gray-600 mb-1">University of Agriculture</p>
+                            <p class="text-gray-600">Faisalabad, Pakistan</p>
+                        </div>
+                        <span class="year-badge">2005</span>
+                    </div>
+                    <p class="text-sm text-gray-700 mt-4">Advanced degree in agricultural science with focus on sustainable farming practices and modern crop management techniques.</p>
+                </div>
+
+                <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-8 rounded-xl border-l-4 border-green-600">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">BSc Hons Agriculture</h3>
+                            <p class="text-gray-600 mb-1">University of Agriculture</p>
+                            <p class="text-gray-600">Faisalabad, Pakistan</p>
+                        </div>
+                        <span class="year-badge">2003</span>
+                    </div>
+                    <p class="text-sm text-gray-700 mt-4">Comprehensive undergraduate degree covering core agronomy, horticulture, and agricultural engineering principles.</p>
+                </div>
+
+                <div class="bg-gradient-to-br from-purple-50 to-violet-50 p-8 rounded-xl border-l-4 border-purple-600">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Web App Developer</h3>
+                            <p class="text-gray-600 mb-1">Microverse</p>
+                            <p class="text-gray-600">Online</p>
+                        </div>
+                        <span class="year-badge">2023</span>
+                    </div>
+                    <p class="text-sm text-gray-700 mt-4">Intensive coding bootcamp specializing in full-stack web development, React, Node.js, and modern JavaScript frameworks.</p>
+                </div>
+
+                <div class="bg-gradient-to-br from-orange-50 to-amber-50 p-8 rounded-xl border-l-4 border-orange-600">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Graphic Design & UI/UX</h3>
+                            <p class="text-gray-600 mb-1">Microverse</p>
+                            <p class="text-gray-600">Online</p>
+                        </div>
+                        <span class="year-badge">2024</span>
+                    </div>
+                    <p class="text-sm text-gray-700 mt-4">Specialized training in design principles, UI/UX design, Canva Pro, Adobe Creative Suite, and interactive web design.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="py-20 px-4 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="section-title mb-12">Professional Experience</h2>
+            <div class="experience-timeline">
+                <div class="experience-item fade-in">
+                    <div class="flex justify-between items-start mb-3">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">Agriculture Engineer</h3>
+                            <p class="text-lg text-gray-600">KAHF Greens, Dubai</p>
+                        </div>
+                        <span class="px-4 py-1 bg-green-100 text-green-700 rounded-full text-sm font-bold">2025 – Now</span>
+                    </div>
+                    <p class="text-gray-700 mb-3">Lead comprehensive landscape redesigns for commercial properties including high-traffic restaurants, focusing on aesthetic appeal, symmetry, and biophilic elements. Evaluate and introduce modern agritech products such as environmental sensors into the UAE market. Direct creation of interactive digital presentations and AI-generated visual mockups.</p>
+                    <div class="flex flex-wrap gap-2 mt-3">
+                        <span class="label-landscape">Landscape Design</span>
+                        <span class="label-landscape">Project Management</span>
+                        <span class="label-landscape">Agritech Integration</span>
+                        <span class="label-tech">AI Mockups</span>
+                    </div>
+                </div>
+
+                <div class="experience-item fade-in" style="animation-delay: 0.1s;">
+                    <div class="flex justify-between items-start mb-3">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">Agriculture Engineer</h3>
+                            <p class="text-lg text-gray-600">Green Acres Landscape, Dubai</p>
+                        </div>
+                        <span class="px-4 py-1 bg-green-100 text-green-700 rounded-full text-sm font-bold">2022 – 2024</span>
+                    </div>
+                    <p class="text-gray-700 mb-3">Managed cross-functional teams from initial sales phase through implementation. Calculated irrigation pressure requirements and troubleshot complex water delivery systems. Developed comprehensive project plans and made critical on-site decisions to mitigate delays and maintain budget constraints.</p>
+                    <div class="flex flex-wrap gap-2 mt-3">
+                        <span class="label-landscape">Team Management</span>
+                        <span class="label-landscape">Irrigation Systems</span>
+                        <span class="label-landscape">Budget Management</span>
+                    </div>
+                </div>
+
+                <div class="experience-item fade-in" style="animation-delay: 0.2s;">
+                    <div class="flex justify-between items-start mb-3">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">Agriculture Engineer</h3>
+                            <p class="text-lg text-gray-600">Hamza Maroof Garden Center LLC, Dubai</p>
+                        </div>
+                        <span class="px-4 py-1 bg-green-100 text-green-700 rounded-full text-sm font-bold">2019 – 2021</span>
+                    </div>
+                    <p class="text-gray-700 mb-3">Achieved project objectives through effective planning of activities and leading project teams from sales to implementation. Directed all landscape design projects, overseeing contracts, client service, and proposal development for premium garden center.</p>
+                    <div class="flex flex-wrap gap-2 mt-3">
+                        <span class="label-landscape">Landscape Design</span>
+                        <span class="label-landscape">Client Relations</span>
+                        <span class="label-landscape">Contract Management</span>
+                    </div>
+                </div>
+
+                <div class="experience-item fade-in" style="animation-delay: 0.3s;">
+                    <div class="flex justify-between items-start mb-3">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">Projects Engineer</h3>
+                            <p class="text-lg text-gray-600">Profed Technical Works LLC, Dubai</p>
+                        </div>
+                        <span class="px-4 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-bold">2017 – 2019</span>
+                    </div>
+                    <p class="text-gray-700 mb-3">Oversaw all phases of each project including site analysis, budgeting, staffing, scheduling, procurement, installation, and quality control. Planned work and scheduling throughout all phases of the design process.</p>
+                    <div class="flex flex-wrap gap-2 mt-3">
+                        <span class="label-landscape">Site Analysis</span>
+                        <span class="label-landscape">Quality Control</span>
+                        <span class="label-landscape">Procurement</span>
+                    </div>
+                </div>
+
+                <div class="experience-item fade-in" style="animation-delay: 0.4s;">
+                    <div class="flex justify-between items-start mb-3">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">Agriculture Engineer</h3>
+                            <p class="text-lg text-gray-600">Sea View Landscaping, Ajman</p>
+                        </div>
+                        <span class="px-4 py-1 bg-green-100 text-green-700 rounded-full text-sm font-bold">2006 – 2017</span>
+                    </div>
+                    <p class="text-gray-700 mb-3">Partnered with project teams to provide effective landscape architectural solutions. Worked on landscape design, site surveying, project supervision, and irrigation system management for diverse projects.</p>
+                    <div class="flex flex-wrap gap-2 mt-3">
+                        <span class="label-landscape">Landscape Design</span>
+                        <span class="label-landscape">Site Surveying</span>
+                        <span class="label-landscape">Irrigation Management</span>
+                    </div>
+                </div>
+
+                <div class="experience-item fade-in" style="animation-delay: 0.5s;">
+                    <div class="flex justify-between items-start mb-3">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">Agriculture Credit Officer</h3>
+                            <p class="text-lg text-gray-600">Habib Bank Limited, Dubai</p>
+                        </div>
+                        <span class="px-4 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-bold">2005 – 2006</span>
+                    </div>
+                    <p class="text-gray-700 mb-3">Visited farmers and agricultural clients to assess land, crops, livestock, and farming operations. Evaluated repayment capacity based on farm income, crop cycles, and market conditions. Recommended correct loan amounts and repayment schedules.</p>
+                    <div class="flex flex-wrap gap-2 mt-3">
+                        <span class="label-landscape">Agriculture Assessment</span>
+                        <span class="label-landscape">Financial Analysis</span>
+                        <span class="label-landscape">Risk Evaluation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section class="py-20 px-4 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="section-title mb-12">Certifications & Training</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="cert-card fade-in">
+                    <div class="flex items-center mb-3">
+                        <i class="fas fa-certificate text-2xl text-orange-500 mr-3"></i>
+                        <div>
+                            <p class="font-bold text-gray-900">UAE Equivalency Certificate</p>
+                            <p class="text-sm text-gray-600">2019</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-700 mb-2">Official UAE equivalency recognition for agricultural qualifications</p>
+                    <p class="text-xs text-gray-500">Reg: 201913413-1173027</p>
+                </div>
+
+                <div class="cert-card fade-in" style="animation-delay: 0.1s;">
+                    <div class="flex items-center mb-3">
+                        <i class="fas fa-award text-2xl text-orange-500 mr-3"></i>
+                        <div>
+                            <p class="font-bold text-gray-900">IELTS Certification</p>
+                            <p class="text-sm text-gray-600">2014</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-700 mb-2">International English Language Testing System</p>
+                    <p class="text-xs text-gray-500">Band Score: 6.5</p>
+                </div>
+
+                <div class="cert-card fade-in" style="animation-delay: 0.2s;">
+                    <div class="flex items-center mb-3">
+                        <i class="fas fa-leaf text-2xl text-orange-500 mr-3"></i>
+                        <div>
+                            <p class="font-bold text-gray-900">G.A.P Crops Training</p>
+                            <p class="text-sm text-gray-600">2018</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-700 mb-2">Training on Global Good Agricultural Practices (Basics)</p>
+                    <p class="text-xs text-gray-500">Organized by Bureau Veritas, Sargodha</p>
+                </div>
+
+                <div class="cert-card fade-in" style="animation-delay: 0.3s;">
+                    <div class="flex items-center mb-3">
+                        <i class="fas fa-shield-alt text-2xl text-orange-500 mr-3"></i>
+                        <div>
+                            <p class="font-bold text-gray-900">Civil Defense Training</p>
+                            <p class="text-sm text-gray-600">2012 & 2014</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-700 mb-2">Emergency Response and Safety Training</p>
+                    <p class="text-xs text-gray-500">Civil Defence Dept. Ajman, UAE</p>
+                </div>
+
+                <div class="cert-card fade-in" style="animation-delay: 0.4s;">
+                    <div class="flex items-center mb-3">
+                        <i class="fas fa-graduation-cap text-2xl text-orange-500 mr-3"></i>
+                        <div>
+                            <p class="font-bold text-gray-900">Experimental Design</p>
+                            <p class="text-sm text-gray-600">2003</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-700 mb-2">Principles of Experimental Design & Analysis</p>
+                    <p class="text-xs text-gray-500">University of Agriculture & University of Wales</p>
+                </div>
+
+                <div class="cert-card fade-in" style="animation-delay: 0.5s;">
+                    <div class="flex items-center mb-3">
+                        <i class="fas fa-id-card text-2xl text-orange-500 mr-3"></i>
+                        <div>
+                            <p class="font-bold text-gray-900">UAE Driving License</p>
+                            <p class="text-sm text-gray-600">2011</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-700 mb-2">Valid UAE Driver's License</p>
+                    <p class="text-xs text-gray-500">Ajman, UAE</p>
+                </div>
+
+                <div class="cert-card fade-in" style="animation-delay: 0.6s;">
+                    <div class="flex items-center mb-3">
+                        <i class="fas fa-briefcase text-2xl text-orange-500 mr-3"></i>
+                        <div>
+                            <p class="font-bold text-gray-900">Management Training</p>
+                            <p class="text-sm text-gray-600">2003</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-700 mb-2">Management Trainee Workshop</p>
+                    <p class="text-xs text-gray-500">Habib Bank Limited, Pakistan</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Languages Section -->
+    <section class="py-20 px-4 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="section-title mb-12">Languages</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <div class="mb-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-bold text-gray-900">Urdu / Hindi</span>
+                            <span class="text-sm font-bold text-gray-600">Native</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-fill" style="width: 100%;"></div></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="mb-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-bold text-gray-900">English</span>
+                            <span class="text-sm font-bold text-gray-600">Professional</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-fill" style="width: 88%;"></div></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="mb-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-bold text-gray-900">Punjabi</span>
+                            <span class="text-sm font-bold text-gray-600">Fluent</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-fill" style="width: 95%;"></div></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="mb-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-bold text-gray-900">Arabic</span>
+                            <span class="text-sm font-bold text-gray-600">Basic</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-fill" style="width: 45%;"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 px-4 gradient-primary">
+        <div class="max-w-2xl mx-auto text-center">
+            <h2 class="text-5xl font-bold mb-4 text-white">Let's Work Together</h2>
+            <p class="text-xl text-gray-100 mb-12">Have a landscape project, tech challenge, or AI solution in mind? I'd love to hear about it.</p>
+            
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <div class="bg-white/10 backdrop-blur-md rounded-xl p-6 text-center text-white">
+                    <i class="fas fa-phone text-4xl mb-4 text-orange-300"></i>
+                    <p class="text-sm text-gray-100 mb-2">Phone</p>
+                    <p class="font-bold text-lg">+92-55-1740572</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-xl p-6 text-center text-white">
+                    <i class="fas fa-envelope text-4xl mb-4 text-orange-300"></i>
+                    <p class="text-sm text-gray-100 mb-2">Email</p>
+                    <p class="font-bold text-lg">kayser.abbass@gmail.com</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-xl p-6 text-center text-white">
+                    <i class="fas fa-map-marker-alt text-4xl mb-4 text-orange-300"></i>
+                    <p class="text-sm text-gray-100 mb-2">Location</p>
+                    <p class="font-bold text-lg">Dubai, UAE</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-2xl p-8 max-w-xl mx-auto">
+                <h3 class="text-2xl font-bold mb-6 text-gray-900 text-center">Quick Inquiry</h3>
+                <form class="space-y-4" onsubmit="handleSubmit(event)">
+                    <input type="text" placeholder="Your Name" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-green-700 focus:outline-none transition bg-gray-50" required>
+                    <input type="email" placeholder="Your Email" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-green-700 focus:outline-none transition bg-gray-50" required>
+                    <select class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-green-700 focus:outline-none transition bg-gray-50" required>
+                        <option value="">Select Service Type</option>
+                        <option value="landscape">Landscape Design & Redesign</option>
+                        <option value="web-app">Web Application Development</option>
+                        <option value="ai-agent">Custom AI Agent</option>
+                        <option value="mobile">Mobile App Development</option>
+                        <option value="consultation">Consultation</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <textarea placeholder="Tell me about your project..." rows="4" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-green-700 focus:outline-none transition resize-none bg-gray-50" required></textarea>
+                    <button type="submit" class="w-full cta-btn text-center">Send Inquiry</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-100 py-12 px-4 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h4 class="text-lg font-bold text-white mb-4">Qaisar Abbas</h4>
+                    <p class="text-gray-400 text-sm">Landscape Engineer & AI Solutions Developer crafting digital innovations for the agriculture and technology sectors.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold text-white mb-4">Quick Links</h4>
+                    <ul class="text-gray-400 text-sm space-y-2">
+                        <li><a href="#projects" class="hover:text-orange-400 transition">Projects</a></li>
+                        <li><a href="#skills" class="hover:text-orange-400 transition">Skills</a></li>
+                        <li><a href="#about" class="hover:text-orange-400 transition">About</a></li>
+                        <li><a href="#contact" class="hover:text-orange-400 transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold text-white mb-4">Connect</h4>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-orange-500 transition"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-orange-500 transition"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-orange-500 transition"><i class="fab fa-github"></i></a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-orange-500 transition"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center">
+                <p class="text-gray-500 text-sm">&copy; 2025 Qaisar Abbas. All rights reserved. | Landscape Engineer | AI Solutions Developer | Web Specialist</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentFilter = 'all';
+
+        function filterProjects(sector) {
+            currentFilter = sector;
+            const projects = document.querySelectorAll('[class*="project-"]');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+
+            filterBtns.forEach(btn => {
+                btn.classList.remove('active-filter');
+                btn.classList.add('border-2');
+                if (btn.dataset.filter === 'landscape') btn.classList.add('border-green-600', 'text-green-600');
+                if (btn.dataset.filter === 'it') btn.classList.add('border-blue-600', 'text-blue-600');
+            });
+
+            const activeBtn = Array.from(filterBtns).find(btn => btn.dataset.filter === sector);
+            if (activeBtn) {
+                activeBtn.classList.add('active-filter');
+                activeBtn.classList.remove('border-green-600', 'border-blue-600', 'text-green-600', 'text-blue-600');
+            }
+
+            projects.forEach(project => {
+                if (sector === 'all') {
+                    project.style.display = 'block';
+                } else if (sector === 'landscape' && project.classList.contains('project-landscape')) {
+                    project.style.display = 'block';
+                } else if (sector === 'it' && project.classList.contains('project-it')) {
+                    project.style.display = 'block';
+                } else {
+                    project.style.display = 'none';
+                }
+            });
+        }
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            alert('Thank you for your inquiry! I will get back to you shortly.');
+            e.target.reset();
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

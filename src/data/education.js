@@ -1,0 +1,38 @@
+export const education = [
+  {
+    id: 1,
+    degree: 'MSc Hons Agriculture',
+    institution: 'University of Agriculture',
+    location: 'Faisalabad, Pakistan',
+    year: '2005',
+    description: 'Advanced degree in agricultural science with focus on sustainable farming practices and modern crop management techniques.',
+    color: 'blue',
+  },
+  {
+    id: 2,
+    degree: 'BSc Hons Agriculture',
+    institution: 'University of Agriculture',
+    location: 'Faisalabad, Pakistan',
+    year: '2003',
+    description: 'Comprehensive undergraduate degree covering core agronomy, horticulture, and agricultural engineering principles.',
+    color: 'green',
+  },
+  {
+    id: 3,
+    degree: 'Web App Developer',
+    institution: 'Microverse',
+    location: 'Online',
+    year: '2023',
+    description: 'Intensive coding bootcamp specializing in full-stack web development, React, Node.js, and modern JavaScript frameworks.',
+    color: 'purple',
+  },
+  {
+    id: 4,
+    degree: 'Graphic Design & UI/UX',
+    institution: 'Microverse',
+    location: 'Online',
+    year: '2024',
+    description: 'Specialized training in design principles, UI/UX design, Canva Pro, Adobe Creative Suite, and interactive web design.',
+    color: 'orange',
+  },
+];

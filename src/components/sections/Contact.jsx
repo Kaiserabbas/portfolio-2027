@@ -7,7 +7,10 @@ import {
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 import Toast from '../ui/Toast';
 
-const EMAIL = 'qaisar.abbas@email.com';
+const EMAIL = 'Kayser.abbas@gmail.com';
+const PHONE = '+971 55 1740572';
+const TEL_LINK = 'tel:+971551740572';
+const LINKEDIN_URL = 'https://www.linkedin.com/in/kaisar-abbas/';
 
 export default function Contact() {
   const { ref, isVisible } = useScrollAnimation();
@@ -76,8 +79,8 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="text-xs text-gray-400 font-semibold uppercase tracking-wide mb-0.5">Phone</p>
-                    <a href="tel:+971" className="text-gray-800 dark:text-gray-200 font-medium text-sm hover:text-primary-500 transition">
-                      +971 XX XXX XXXX
+                    <a href={TEL_LINK} className="text-gray-800 dark:text-gray-200 font-medium text-sm hover:text-primary-500 transition">
+                      {PHONE}
                     </a>
                   </div>
                 </div>
@@ -97,7 +100,7 @@ export default function Contact() {
               <div className="border-t border-gray-100 dark:border-gray-700 mt-6 pt-6">
                 <p className="text-xs text-gray-400 font-semibold uppercase tracking-wide mb-3">Connect</p>
                 <div className="flex gap-3">
-                  <a href="https://linkedin.com" target="_blank" rel="noreferrer"
+                  <a href={LINKEDIN_URL} target="_blank" rel="noreferrer"
                     className="flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-sm font-semibold hover:bg-blue-100 dark:hover:bg-blue-900/40 transition">
                     <RiLinkedinBoxFill size={16} /> LinkedIn
                   </a>
@@ -116,7 +119,7 @@ export default function Contact() {
                 <span className="text-sm font-bold text-green-700 dark:text-green-400">Available for Work</span>
               </div>
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                Open to landscape consulting, web development, and AI integration projects in Dubai and remotely worldwide.
+                Open to landscape consulting, web development, and AI integration projects in the Gulf and remotely worldwide.
               </p>
             </div>
           </div>

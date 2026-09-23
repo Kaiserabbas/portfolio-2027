@@ -36,7 +36,7 @@ export const testimonials = [
     company: 'Profed Technical Works LLC',
     initials: 'AR',
     color: 'orange',
-    quote: '"Qaisar\'s systematic approach to project engineering is impressive. He manages every phase — from site analysis to final quality control — with precision and professionalism. Our projects consistently come in on time and within budget."',
+    quote: '"Qaisar\'s systematic approach to project engineering is impressive. He manages every phase, from site analysis to final quality control, with precision and professionalism. Our projects consistently come in on time and within budget."',
     rating: 5,
   },
 ];

@@ -28,7 +28,7 @@ export default function Resume() {
             <div className="flex items-center gap-2">
               <RiEyeLine className="text-primary-500" size={16} />
               <span className="text-sm font-semibold text-gray-800 dark:text-gray-200">
-                Resume — Qaisar Abbas
+                Resume: Qaisar Abbas
               </span>
             </div>
           </div>

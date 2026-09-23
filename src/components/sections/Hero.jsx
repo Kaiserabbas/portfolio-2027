@@ -1,6 +1,4 @@
-import { Link } from 'react-router-dom';
 import {
-  RiDownloadLine, RiEyeLine, RiMailLine,
   RiLeafLine, RiCodeSSlashLine, RiRobotLine, RiDatabase2Line,
 } from 'react-icons/ri';
 import { useTypewriter } from '../../hooks/useTypewriter';
@@ -39,7 +37,7 @@ export default function Hero() {
             {/* Status badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 text-sm font-semibold mb-6">
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-              Available for projects in Dubai & Remote
+              Available for projects in Gulf &amp; Remote
             </div>
 
             <h1 className="text-4xl sm:text-5xl xl:text-6xl font-bold mb-4 text-gray-900 dark:text-white leading-tight">
@@ -61,20 +59,8 @@ export default function Hero() {
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-4 mb-10">
               <a href="#projects" onClick={e => { e.preventDefault(); document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }); }}
-                className="cta-btn">
+                className="cta-btn text-base px-7 py-3">
                 View My Work
-              </a>
-              <Link to="/resume" className="btn-outline">
-                <RiEyeLine size={18} />
-                View Resume
-              </Link>
-              <a
-                href="/resume/Qaisar-Abbas-Resume.pdf"
-                download="Qaisar-Abbas-Resume.pdf"
-                className="btn-outline"
-              >
-                <RiDownloadLine size={18} />
-                Download CV
               </a>
             </div>
 

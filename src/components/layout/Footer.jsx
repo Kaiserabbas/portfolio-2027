@@ -18,16 +18,19 @@ export default function Footer() {
               Landscape Engineer & AI Solutions Developer bridging 15+ years of horticulture expertise with cutting-edge technology in Dubai, UAE.
             </p>
             <div className="flex gap-3 mt-5">
-              <a href="https://linkedin.com" target="_blank" rel="noreferrer"
-                className="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-800 hover:bg-primary-500 transition text-gray-300 hover:text-white">
+              <a href="https://www.linkedin.com/in/kaisar-abbas/" target="_blank" rel="noreferrer"
+                className="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-800 hover:bg-primary-500 transition text-gray-300 hover:text-white"
+                title="LinkedIn Profile">
                 <RiLinkedinBoxFill size={18} />
               </a>
               <a href="https://github.com" target="_blank" rel="noreferrer"
-                className="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-800 hover:bg-primary-500 transition text-gray-300 hover:text-white">
+                className="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-800 hover:bg-primary-500 transition text-gray-300 hover:text-white"
+                title="GitHub Profile">
                 <RiGithubFill size={18} />
               </a>
-              <a href="mailto:qaisar.abbas@email.com"
-                className="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-800 hover:bg-primary-500 transition text-gray-300 hover:text-white">
+              <a href="mailto:Kayser.abbas@gmail.com"
+                className="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-800 hover:bg-primary-500 transition text-gray-300 hover:text-white"
+                title="Email Kayser">
                 <RiMailLine size={18} />
               </a>
             </div>
@@ -37,7 +40,7 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm">
-              {['projects', 'skills', 'about', 'experience', 'contact'].map(link => (
+              {['projects', 'services', 'skills', 'about', 'experience', 'contact'].map(link => (
                 <li key={link}>
                   <a href={`#${link}`} className="text-gray-400 hover:text-white transition capitalize">
                     {link}
@@ -62,13 +65,13 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2 text-gray-400">
                 <RiMailLine className="text-primary-500 flex-shrink-0" size={16} />
-                <a href="mailto:qaisar.abbas@email.com" className="hover:text-white transition">
-                  qaisar.abbas@email.com
+                <a href="mailto:Kayser.abbas@gmail.com" className="hover:text-white transition">
+                  Kayser.abbas@gmail.com
                 </a>
               </li>
               <li className="flex items-center gap-2 text-gray-400">
                 <RiPhoneLine className="text-primary-500 flex-shrink-0" size={16} />
-                <a href="tel:+971" className="hover:text-white transition">+971 XX XXX XXXX</a>
+                <a href="tel:+971551740572" className="hover:text-white transition">+971 55 1740572</a>
               </li>
             </ul>
             <a

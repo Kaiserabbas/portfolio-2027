@@ -1,20 +1,31 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
-  RiMenu3Line, RiCloseLine, RiDownloadLine, RiEyeLine,
+  RiMenu3Line,
+  RiCloseLine,
+  RiDownloadLine,
+  RiEyeLine,
+  RiLeafLine,
+  RiFolderLine,
+  RiServiceLine,
+  RiToolsLine,
+  RiUserLine,
+  RiBriefcaseLine,
+  RiMailLine,
 } from 'react-icons/ri';
 import ThemeToggle from '../ui/ThemeToggle';
 import { useActiveSection } from '../../hooks/useScrollAnimation';
 
 const NAV_LINKS = [
-  { href: '#projects', label: 'Projects' },
-  { href: '#skills', label: 'Skills' },
-  { href: '#about', label: 'About' },
-  { href: '#experience', label: 'Experience' },
-  { href: '#contact', label: 'Contact' },
+  { href: '#projects', label: 'Projects', icon: RiFolderLine },
+  { href: '#services', label: 'Services', icon: RiServiceLine },
+  { href: '#skills', label: 'Skills', icon: RiToolsLine },
+  { href: '#about', label: 'About', icon: RiUserLine },
+  { href: '#experience', label: 'Experience', icon: RiBriefcaseLine },
+  { href: '#contact', label: 'Contact', icon: RiMailLine },
 ];
 
-const SECTION_IDS = ['projects', 'skills', 'about', 'experience', 'contact'];
+const SECTION_IDS = ['projects', 'services', 'skills', 'about', 'experience', 'contact'];
 
 export default function Navbar({ isDark, toggleTheme }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -24,7 +35,7 @@ export default function Navbar({ isDark, toggleTheme }) {
   const isHome = location.pathname === '/';
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 20);
+    const handler = () => setScrolled(window.scrollY > 15);
     window.addEventListener('scroll', handler, { passive: true });
     return () => window.removeEventListener('scroll', handler);
   }, []);
@@ -34,74 +45,104 @@ export default function Navbar({ isDark, toggleTheme }) {
 
   const handleNavClick = (href) => {
     setMenuOpen(false);
-    if (!isHome) return;
+    if (!isHome) {
+      window.location.href = '/' + href;
+      return;
+    }
     const id = href.replace('#', '');
     const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
-    <nav className={`sticky top-0 z-50 transition-all duration-300 ${scrolled
-      ? 'bg-white/95 dark:bg-gray-950/95 backdrop-blur-xl shadow-md border-b border-gray-100 dark:border-gray-800'
-      : 'bg-white/80 dark:bg-gray-950/80 backdrop-blur-md border-b border-transparent'
+    <header className={`sticky top-0 z-50 transition-all duration-300 ${
+      scrolled
+        ? 'bg-white/95 dark:bg-gray-950/95 backdrop-blur-xl shadow-sm border-b border-gray-200/80 dark:border-gray-800'
+        : 'bg-white/80 dark:bg-gray-950/80 backdrop-blur-md border-b border-gray-100/60 dark:border-gray-900'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link to="/" className="text-xl font-bold gradient-text tracking-tight">
-            Qaisar Abbas
+        <div className="flex items-center justify-between h-18 py-2">
+
+          {/* Logo with Monogram Badge */}
+          <Link to="/" className="flex items-center gap-2.5 group">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary-600 to-emerald-400 flex items-center justify-center text-white shadow-md shadow-primary-500/20 group-hover:scale-105 transition-transform duration-200">
+              <RiLeafLine size={20} />
+            </div>
+            <div>
+              <span className="text-lg font-bold text-gray-900 dark:text-white tracking-tight group-hover:text-primary-600 dark:group-hover:text-emerald-400 transition-colors">
+                Qaisar Abbas
+              </span>
+              <span className="block text-[11px] font-medium text-gray-500 dark:text-gray-400 -mt-0.5 tracking-wide">
+                Landscape &amp; AI Engineer
+              </span>
+            </div>
           </Link>
 
-          {/* Desktop Nav */}
-          <ul className="hidden lg:flex items-center gap-1">
-            {isHome && NAV_LINKS.map(({ href, label }) => {
-              const id = href.replace('#', '');
-              const isActive = activeSection === id;
-              return (
-                <li key={href}>
+          {/* Desktop Navigation Links */}
+          <nav className="hidden lg:flex items-center gap-1 bg-gray-100/70 dark:bg-gray-900/60 p-1.5 rounded-full border border-gray-200/60 dark:border-gray-800">
+            {isHome ? (
+              NAV_LINKS.map(({ href, label }) => {
+                const id = href.replace('#', '');
+                const isActive = activeSection === id;
+                return (
                   <a
+                    key={href}
                     href={href}
-                    onClick={(e) => { e.preventDefault(); handleNavClick(href); }}
-                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(href);
+                    }}
+                    className={`relative px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
                       isActive
-                        ? 'text-primary-500 bg-green-50 dark:bg-green-900/20'
-                        : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800'
+                        ? 'bg-white dark:bg-gray-800 text-primary-600 dark:text-emerald-400 shadow-sm'
+                        : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-gray-800/50'
                     }`}
                   >
                     {label}
                   </a>
-                </li>
-              );
-            })}
-          </ul>
+                );
+              })
+            ) : (
+              <Link
+                to="/"
+                className="px-4 py-1.5 rounded-full text-xs font-semibold text-gray-700 dark:text-gray-200 hover:text-primary-500 transition"
+              >
+                ← Back to Home
+              </Link>
+            )}
+          </nav>
 
-          {/* Right Actions */}
-          <div className="hidden lg:flex items-center gap-3">
+          {/* Right Action Items */}
+          <div className="hidden lg:flex items-center gap-2.5">
             <ThemeToggle isDark={isDark} toggle={toggleTheme} />
+
             <Link
               to="/resume"
-              className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-600 transition-all shadow-2xs"
             >
-              <RiEyeLine size={16} />
-              View Resume
+              <RiEyeLine size={15} />
+              <span>Resume</span>
             </Link>
+
             <a
               href="/resume/Qaisar-Abbas-Resume.pdf"
               download="Qaisar-Abbas-Resume.pdf"
-              className="cta-btn text-sm px-5 py-2.5"
+              className="cta-btn text-xs py-2 px-4 shadow-sm"
             >
-              <RiDownloadLine size={16} />
-              Download CV
+              <RiDownloadLine size={15} />
+              <span>Download CV</span>
             </a>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Actions: Theme + Toggle Hamburger */}
           <div className="flex lg:hidden items-center gap-2">
             <ThemeToggle isDark={isDark} toggle={toggleTheme} />
             <button
               onClick={() => setMenuOpen(prev => !prev)}
-              aria-label="Toggle menu"
-              className="w-10 h-10 flex items-center justify-center rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+              aria-label="Toggle Navigation Menu"
+              className="w-10 h-10 flex items-center justify-center rounded-xl text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
             >
               {menuOpen ? <RiCloseLine size={22} /> : <RiMenu3Line size={22} />}
             </button>
@@ -109,41 +150,66 @@ export default function Navbar({ isDark, toggleTheme }) {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Drawer Menu */}
       {menuOpen && (
-        <div className="lg:hidden border-t border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-950 px-4 pb-4 pt-2 shadow-xl">
+        <div className="lg:hidden border-t border-gray-200 dark:border-gray-800 bg-white/95 dark:bg-gray-950/95 backdrop-blur-2xl px-4 py-4 shadow-2xl animate-[fadeIn_0.2s_ease-out]">
           <ul className="space-y-1 mb-4">
-            {isHome && NAV_LINKS.map(({ href, label }) => (
-              <li key={href}>
-                <a
-                  href={href}
-                  onClick={(e) => { e.preventDefault(); handleNavClick(href); }}
-                  className="block px-4 py-2.5 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition"
+            {isHome ? (
+              NAV_LINKS.map(({ href, label, icon: Icon }) => {
+                const id = href.replace('#', '');
+                const isActive = activeSection === id;
+                return (
+                  <li key={href}>
+                    <a
+                      href={href}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavClick(href);
+                      }}
+                      className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition ${
+                        isActive
+                          ? 'bg-primary-50 dark:bg-emerald-950/40 text-primary-600 dark:text-emerald-400 font-bold'
+                          : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900'
+                      }`}
+                    >
+                      <Icon size={18} className="text-primary-500" />
+                      <span>{label}</span>
+                    </a>
+                  </li>
+                );
+              })
+            ) : (
+              <li>
+                <Link
+                  to="/"
+                  className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-900"
                 >
-                  {label}
-                </a>
+                  <span>← Back to Home</span>
+                </Link>
               </li>
-            ))}
+            )}
           </ul>
-          <div className="flex flex-col gap-2 pt-2 border-t border-gray-100 dark:border-gray-800">
+
+          <div className="grid grid-cols-2 gap-2 pt-3 border-t border-gray-100 dark:border-gray-800">
             <Link
               to="/resume"
-              className="flex items-center justify-center gap-2 w-full py-2.5 rounded-lg text-sm font-semibold text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700"
+              onClick={() => setMenuOpen(false)}
+              className="flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-xs font-semibold text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900"
             >
-              <RiEyeLine size={16} />
-              View Resume
+              <RiEyeLine size={15} />
+              <span>View Resume</span>
             </Link>
             <a
               href="/resume/Qaisar-Abbas-Resume.pdf"
               download="Qaisar-Abbas-Resume.pdf"
-              className="cta-btn justify-center text-sm"
+              className="cta-btn justify-center text-xs py-2.5"
             >
-              <RiDownloadLine size={16} />
-              Download CV
+              <RiDownloadLine size={15} />
+              <span>Download CV</span>
             </a>
           </div>
         </div>
       )}
-    </nav>
+    </header>
   );
 }

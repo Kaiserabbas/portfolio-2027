@@ -29,7 +29,7 @@ export const experiences = [
     location: 'Dubai, UAE',
     period: '2022 - 2024',
     periodColor: 'green',
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=250&fit=crop',
+    image: '/images/projects/greenacres.jpg',
     description:
       'Led cross-functional teams through full-cycle landscape development from sales to implementation across multiple simultaneous projects. Delivered landscape solutions for villa communities including Al Barari, Dubai Hills Estate, Meadows, Greens, Arabian Ranches, and DAMAC Hills. Introduced AI-powered proposal generation workflows and digital client presentations, saving significant administrative time.',
     highlights: [
@@ -50,7 +50,7 @@ export const experiences = [
     location: 'Dubai, UAE',
     period: '2019 - 2021',
     periodColor: 'green',
-    image: 'https://images.unsplash.com/photo-1530522455947-a307b6dad9a1?w=400&h=250&fit=crop',
+    image: 'images/projects/hamzamaroof.jpg',
     description:
       'Directed all landscape design projects for a premium garden center, overseeing contracts, client service, and proposal development. Developed and implemented a client retention strategy that increased repeat business. Managed plant procurement, supplier relations, and on-site supervision for residential and commercial projects across Dubai.',
     highlights: [
@@ -71,7 +71,7 @@ export const experiences = [
     location: 'Dubai, UAE',
     period: '2017 - 2019',
     periodColor: 'blue',
-    image: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=400&h=250&fit=crop',
+    image: 'images/projects/emaar.jpg',
     description:
       'Oversaw all phases of landscape and technical projects including site analysis, budgeting, staffing, scheduling, procurement, installation, and quality control. Key project deliverables included Nakheel\'s Palm Jumeirah frond landscaping, International City community green space management, and multiple Emaar community management contracts.',
     highlights: [
@@ -92,7 +92,7 @@ export const experiences = [
     location: 'Ajman, UAE',
     period: '2006 - 2017',
     periodColor: 'green',
-    image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&h=250&fit=crop',
+    image: 'images/projects/jbr-interior.jpg',
     description:
       'Delivered comprehensive landscape engineering services across a diverse portfolio of landmark UAE projects over 11 years. Responsibilities included landscape design, site surveying, full project supervision, and irrigation system management. Worked on major accounts including Zayed University (Emirates Landscaping), WRIGLEY FZCO Jebel Ali campus, and villa communities across Ajman, Sharjah, and Dubai.',
     highlights: [

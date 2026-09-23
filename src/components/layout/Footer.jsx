@@ -13,9 +13,15 @@ export default function Footer() {
         <div className="grid md:grid-cols-3 gap-10 mb-10">
           {/* Brand */}
           <div>
-            <span className="text-xl font-bold gradient-text">Qaisar Abbas</span>
-            <p className="text-sm text-gray-400 mt-3 leading-relaxed">
-              Landscape Engineer & AI Solutions Developer bridging 15+ years of horticulture expertise with cutting-edge technology in Dubai, UAE.
+            <div className="bg-white/95 rounded-xl p-2 inline-block mb-4 shadow-sm max-w-[220px]">
+              <img
+                src="/logo.png"
+                alt="Qaisar Abbas"
+                className="h-10 w-auto object-contain"
+              />
+            </div>
+            <p className="text-sm text-gray-400 leading-relaxed">
+              Landscape Engineer &amp; AI Solutions Developer bridging 15+ years of horticulture expertise with cutting-edge technology in Dubai, UAE.
             </p>
             <div className="flex gap-3 mt-5">
               <a href="https://www.linkedin.com/in/kaisar-abbas/" target="_blank" rel="noreferrer"

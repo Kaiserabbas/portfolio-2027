@@ -12,24 +12,17 @@ const TITLES = [
 ];
 
 const SERVICE_ICONS = [
-  { icon: RiLeafLine, label: 'Landscape Design', sub: 'Biophilic & Sustainable', color: 'green' },
-  { icon: RiCodeSSlashLine, label: 'Web Development', sub: 'React & Modern Tech', color: 'blue' },
-  { icon: RiRobotLine, label: 'AI Agents', sub: 'Claude & Automation', color: 'purple' },
-  { icon: RiDatabase2Line, label: 'Databases', sub: 'Architecture & Design', color: 'orange' },
+  { icon: RiLeafLine, label: 'Landscape Design', sub: 'Biophilic & Sustainable' },
+  { icon: RiCodeSSlashLine, label: 'Web Development', sub: 'React & Modern Tech' },
+  { icon: RiRobotLine, label: 'AI Agents', sub: 'Claude & Automation' },
+  { icon: RiDatabase2Line, label: 'Databases', sub: 'Architecture & Design' },
 ];
-
-const colorMap = {
-  green: 'from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-green-200 dark:border-green-800 text-green-600',
-  blue: 'from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 border-blue-200 dark:border-blue-800 text-blue-600',
-  purple: 'from-purple-50 to-violet-50 dark:from-purple-900/20 dark:to-violet-900/20 border-purple-200 dark:border-purple-800 text-purple-600',
-  orange: 'from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20 border-orange-200 dark:border-orange-800 text-orange-600',
-};
 
 export default function Hero() {
   const typedTitle = useTypewriter(TITLES, { speed: 80, deleteSpeed: 50, pause: 2200 });
 
   return (
-    <section className="bg-white dark:bg-gray-950 py-20 lg:py-28 px-4 overflow-hidden">
+    <section className="bg-white dark:bg-gray-950 pt-5 sm:pt-7 lg:pt-8 pb-16 lg:pb-24 px-4 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left: Text */}
@@ -83,14 +76,20 @@ export default function Hero() {
 
           {/* Right: Service Icons Grid */}
           <div className="grid grid-cols-2 gap-4 animate-[fadeInUp_0.7s_ease-out_0.2s_forwards] opacity-0">
-            {SERVICE_ICONS.map(({ icon: Icon, label, sub, color }) => (
+            {SERVICE_ICONS.map(({ icon: Icon, label, sub }) => (
               <div
                 key={label}
-                className={`bg-gradient-to-br ${colorMap[color]} border-2 rounded-2xl p-8 text-center hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-default`}
+                className="group bg-gradient-to-b from-emerald-50/50 via-white to-emerald-50/20 dark:from-emerald-950/20 dark:via-gray-900 dark:to-emerald-950/10 border-2 border-emerald-100/80 dark:border-emerald-900/40 hover:border-emerald-400/80 dark:hover:border-emerald-600/70 rounded-2xl p-6 sm:p-7 text-center hover:shadow-xl hover:shadow-emerald-900/5 dark:hover:shadow-emerald-950/30 hover:-translate-y-1 transition-all duration-300 cursor-default"
               >
-                <Icon size={48} className={`mx-auto mb-4 ${colorMap[color].split(' ').find(c => c.startsWith('text-'))}`} />
-                <p className="font-bold text-gray-900 dark:text-white text-sm">{label}</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{sub}</p>
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white flex items-center justify-center mx-auto mb-3.5 shadow-md shadow-emerald-600/20 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-emerald-600/30 transition-all duration-300">
+                  <Icon size={30} />
+                </div>
+                <p className="font-bold text-gray-900 dark:text-white text-sm sm:text-base group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">
+                  {label}
+                </p>
+                <p className="text-xs text-emerald-800/70 dark:text-emerald-400/80 font-medium mt-1">
+                  {sub}
+                </p>
               </div>
             ))}
           </div>

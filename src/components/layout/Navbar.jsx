@@ -63,21 +63,15 @@ export default function Navbar({ isDark, toggleTheme }) {
         : 'bg-white/80 dark:bg-gray-950/80 backdrop-blur-md border-b border-gray-100/60 dark:border-gray-900'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-18 py-2">
+        <div className="flex items-center justify-between h-20 sm:h-24 py-2 sm:py-2.5">
 
-          {/* Logo with Monogram Badge */}
-          <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary-600 to-emerald-400 flex items-center justify-center text-white shadow-md shadow-primary-500/20 group-hover:scale-105 transition-transform duration-200">
-              <RiLeafLine size={20} />
-            </div>
-            <div>
-              <span className="text-lg font-bold text-gray-900 dark:text-white tracking-tight group-hover:text-primary-600 dark:group-hover:text-emerald-400 transition-colors">
-                Qaisar Abbas
-              </span>
-              <span className="block text-[11px] font-medium text-gray-500 dark:text-gray-400 -mt-0.5 tracking-wide">
-                Landscape &amp; AI Engineer
-              </span>
-            </div>
+          {/* Logo */}
+          <Link to="/" className="flex items-center group py-1" aria-label="Qaisar Abbas Home">
+            <img
+              src="/logo.png"
+              alt="Qaisar Abbas - Landscape Engineer Building with IT & AI"
+              className="h-14 sm:h-18 lg:h-20 w-auto max-h-22 object-contain transition-transform duration-200 group-hover:scale-105"
+            />
           </Link>
 
           {/* Desktop Navigation Links */}

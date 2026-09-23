@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import {
-  RiLayoutGridLine, RiLeafLine, RiCodeSSlashLine, RiStarLine,
+  RiLayoutGridLine, RiLeafLine, RiCodeSSlashLine, RiSmartphoneLine,
 } from 'react-icons/ri';
 import { projects } from '../../data/projects';
 import ProjectCard from '../ui/ProjectCard';
@@ -10,6 +10,7 @@ const FILTERS = [
   { key: 'all', label: 'All Projects', icon: RiLayoutGridLine },
   { key: 'landscape', label: 'Landscape Engineering', icon: RiLeafLine },
   { key: 'it', label: 'Web & AI Solutions', icon: RiCodeSSlashLine },
+  { key: 'both', label: 'Web & Android Apps', icon: RiSmartphoneLine },
 ];
 
 const PAGE_SIZE = 6;
@@ -21,6 +22,8 @@ export default function Projects() {
 
   const filtered = activeFilter === 'all'
     ? projects
+    : activeFilter === 'both'
+    ? projects.filter(p => p.platform === 'both')
     : projects.filter(p => p.category === activeFilter);
 
   const displayed = showAll ? filtered : filtered.slice(0, PAGE_SIZE);
@@ -34,20 +37,6 @@ export default function Projects() {
           <p className="text-gray-600 dark:text-gray-400 mb-10 text-lg max-w-2xl">
             Explore my work across landscape engineering, agritech research, and AI-powered technology solutions
           </p>
-        </div>
-
-        {/* Stats row */}
-        <div className="flex flex-wrap gap-4 mb-10">
-          {[
-            { count: projects.filter(p => p.category === 'landscape').length, label: 'Landscape Projects' },
-            { count: projects.filter(p => p.category === 'it').length, label: 'Tech & AI Projects' },
-            { count: projects.length, label: 'Total Projects' },
-          ].map(({ count, label }) => (
-            <div key={label} className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 text-sm">
-              <span className="font-bold gradient-text text-lg">{count}</span>
-              <span className="text-gray-500 dark:text-gray-400">{label}</span>
-            </div>
-          ))}
         </div>
 
         {/* Filter Buttons */}
@@ -64,13 +53,6 @@ export default function Projects() {
             >
               <Icon size={16} />
               {label}
-              <span className={`px-1.5 py-0.5 rounded-full text-xs ${
-                activeFilter === key
-                  ? 'bg-white/20 text-white'
-                  : 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400'
-              }`}>
-                {key === 'all' ? projects.length : projects.filter(p => p.category === key).length}
-              </span>
             </button>
           ))}
         </div>
@@ -89,7 +71,7 @@ export default function Projects() {
               onClick={() => setShowAll(true)}
               className="btn-outline px-8 py-3"
             >
-              Show All {filtered.length} Projects
+              Show All Projects
             </button>
           </div>
         )}

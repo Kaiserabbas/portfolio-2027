@@ -28,7 +28,7 @@ export default function About() {
                   What sets me apart is my dual mastery: I design and execute <strong className="text-gray-900 dark:text-white">sustainable, high-end commercial and residential landscapes</strong> that create lasting impressions, while simultaneously building <strong className="text-gray-900 dark:text-white">intelligent web and mobile applications</strong> that streamline operations.
                 </p>
                 <p>
-                  I'm adept at full-cycle project planning, cross-functional team leadership, and leveraging modern digital tools — from AI-driven corporate branding to front-end web development — to enhance client presentations and streamline operations.
+                  I'm adept at full-cycle project planning, cross-functional team leadership, and leveraging modern digital tools, from AI-driven corporate branding to front-end web development, to enhance client presentations and streamline operations.
                 </p>
                 <p>
                   Whether managing landscape redesigns for high-traffic restaurants, building AI agents that automate business workflows, or developing mobile apps for real-time plant health monitoring, I bring technical depth and creative problem-solving to every project.
@@ -71,8 +71,8 @@ export default function About() {
 
               {/* Highlights */}
               {[
-                { emoji: '🌿', title: 'Landscape Expert', text: 'From site analysis to biophilic design and smart irrigation — 15 years of hands-on UAE expertise.' },
-                { emoji: '🤖', title: 'AI & Web Developer', text: 'Claude API agents, React apps, Android apps — bridging agritech and modern software engineering.' },
+                { emoji: '🌿', title: 'Landscape Expert', text: 'From site analysis to biophilic design and smart irrigation, backed by 15+ years of hands-on UAE expertise.' },
+                { emoji: '🤖', title: 'AI & Web Developer', text: 'Claude API agents, React apps, Android apps, bridging agritech and modern software engineering.' },
                 { emoji: '🏆', title: 'Project Leader', text: 'Led cross-functional teams delivering 50+ projects on time, from Dubai to Ajman.' },
               ].map(({ emoji, title, text }) => (
                 <div key={title} className="flex gap-4 p-5 rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800">

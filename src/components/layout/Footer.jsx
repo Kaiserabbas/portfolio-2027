@@ -54,6 +54,11 @@ export default function Footer() {
                 </li>
               ))}
               <li>
+                <Link to="/credentials" className="text-gray-400 hover:text-white transition">
+                  Verified Credentials
+                </Link>
+              </li>
+              <li>
                 <Link to="/resume" className="text-gray-400 hover:text-white transition">
                   View Resume
                 </Link>

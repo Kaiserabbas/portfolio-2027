@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   RiMenu3Line,
   RiCloseLine,
   RiDownloadLine,
   RiEyeLine,
-  RiLeafLine,
   RiFolderLine,
   RiServiceLine,
   RiToolsLine,
   RiUserLine,
   RiBriefcaseLine,
   RiMailLine,
+  RiVerifiedBadgeLine,
 } from 'react-icons/ri';
 import ThemeToggle from '../ui/ThemeToggle';
 import { useActiveSection } from '../../hooks/useScrollAnimation';
@@ -22,16 +22,18 @@ const NAV_LINKS = [
   { href: '#skills', label: 'Skills', icon: RiToolsLine },
   { href: '#about', label: 'About', icon: RiUserLine },
   { href: '#experience', label: 'Experience', icon: RiBriefcaseLine },
+  { href: '/credentials', label: 'Credentials', icon: RiVerifiedBadgeLine, isRoute: true },
   { href: '#contact', label: 'Contact', icon: RiMailLine },
 ];
 
-const SECTION_IDS = ['projects', 'services', 'skills', 'about', 'experience', 'contact'];
+const SECTION_IDS = ['projects', 'services', 'skills', 'about', 'experience', 'certifications', 'contact'];
 
 export default function Navbar({ isDark, toggleTheme }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const activeSection = useActiveSection(SECTION_IDS);
   const location = useLocation();
+  const navigate = useNavigate();
   const isHome = location.pathname === '/';
 
   useEffect(() => {
@@ -43,13 +45,17 @@ export default function Navbar({ isDark, toggleTheme }) {
   // Close menu on route change
   useEffect(() => setMenuOpen(false), [location.pathname]);
 
-  const handleNavClick = (href) => {
+  const handleNavClick = (link) => {
     setMenuOpen(false);
-    if (!isHome) {
-      window.location.href = '/' + href;
+    if (link.isRoute) {
+      navigate(link.href);
       return;
     }
-    const id = href.replace('#', '');
+    if (!isHome) {
+      window.location.href = '/' + link.href;
+      return;
+    }
+    const id = link.href.replace('#', '');
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
@@ -76,36 +82,29 @@ export default function Navbar({ isDark, toggleTheme }) {
 
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center gap-1 bg-gray-100/70 dark:bg-gray-900/60 p-1.5 rounded-full border border-gray-200/60 dark:border-gray-800">
-            {isHome ? (
-              NAV_LINKS.map(({ href, label }) => {
-                const id = href.replace('#', '');
-                const isActive = activeSection === id;
-                return (
-                  <a
-                    key={href}
-                    href={href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNavClick(href);
-                    }}
-                    className={`relative px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
-                      isActive
-                        ? 'bg-white dark:bg-gray-800 text-primary-600 dark:text-emerald-400 shadow-sm'
-                        : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-gray-800/50'
-                    }`}
-                  >
-                    {label}
-                  </a>
-                );
-              })
-            ) : (
-              <Link
-                to="/"
-                className="px-4 py-1.5 rounded-full text-xs font-semibold text-gray-700 dark:text-gray-200 hover:text-primary-500 transition"
-              >
-                ← Back to Home
-              </Link>
-            )}
+            {NAV_LINKS.map((link) => {
+              const isActive = link.isRoute
+                ? location.pathname === link.href
+                : isHome && (activeSection === link.href.replace('#', '') || (link.href === '#certifications' && activeSection === 'certifications'));
+
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(link);
+                  }}
+                  className={`relative px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
+                    isActive
+                      ? 'bg-white dark:bg-gray-800 text-primary-600 dark:text-emerald-400 shadow-sm'
+                      : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-gray-800/50'
+                  }`}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
           </nav>
 
           {/* Right Action Items */}
@@ -148,55 +147,48 @@ export default function Navbar({ isDark, toggleTheme }) {
       {menuOpen && (
         <div className="lg:hidden border-t border-gray-200 dark:border-gray-800 bg-white/95 dark:bg-gray-950/95 backdrop-blur-2xl px-4 py-4 shadow-2xl animate-[fadeIn_0.2s_ease-out]">
           <ul className="space-y-1 mb-4">
-            {isHome ? (
-              NAV_LINKS.map(({ href, label, icon: Icon }) => {
-                const id = href.replace('#', '');
-                const isActive = activeSection === id;
-                return (
-                  <li key={href}>
-                    <a
-                      href={href}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleNavClick(href);
-                      }}
-                      className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition ${
-                        isActive
-                          ? 'bg-primary-50 dark:bg-emerald-950/40 text-primary-600 dark:text-emerald-400 font-bold'
-                          : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900'
-                      }`}
-                    >
-                      <Icon size={18} className="text-primary-500" />
-                      <span>{label}</span>
-                    </a>
-                  </li>
-                );
-              })
-            ) : (
-              <li>
-                <Link
-                  to="/"
-                  className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-900"
-                >
-                  <span>← Back to Home</span>
-                </Link>
-              </li>
-            )}
+            {NAV_LINKS.map((link) => {
+              const Icon = link.icon;
+              const isActive = link.isRoute
+                ? location.pathname === link.href
+                : isHome && activeSection === link.href.replace('#', '');
+
+              return (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(link);
+                    }}
+                    className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition ${
+                      isActive
+                        ? 'bg-primary-50 dark:bg-emerald-950/40 text-primary-600 dark:text-emerald-400 font-bold'
+                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900'
+                    }`}
+                  >
+                    <Icon size={18} className="text-primary-500" />
+                    <span>{link.label}</span>
+                  </a>
+                </li>
+              );
+            })}
           </ul>
 
-          <div className="grid grid-cols-2 gap-2 pt-3 border-t border-gray-100 dark:border-gray-800">
+          <div className="pt-3 border-t border-gray-100 dark:border-gray-800 space-y-2">
             <Link
               to="/resume"
               onClick={() => setMenuOpen(false)}
-              className="flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-xs font-semibold text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900"
+              aria-label="View resume"
+              className="flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-emerald-700 to-teal-600 shadow-sm shadow-emerald-900/15 hover:from-emerald-800 hover:to-teal-700 transition w-full"
             >
-              <RiEyeLine size={15} />
+              <RiEyeLine size={16} />
               <span>View Resume</span>
             </Link>
             <a
               href="/resume/Qaisar-Abbas-Resume.pdf"
               download="Qaisar-Abbas-Resume.pdf"
-              className="cta-btn justify-center text-xs py-2.5"
+              className="cta-btn justify-center text-xs py-2.5 w-full"
             >
               <RiDownloadLine size={15} />
               <span>Download CV</span>

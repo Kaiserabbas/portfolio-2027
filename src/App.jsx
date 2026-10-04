@@ -6,6 +6,7 @@ import ScrollProgress from './components/ui/ScrollProgress';
 import BackToTop from './components/ui/BackToTop';
 import Home from './pages/Home';
 import Resume from './pages/Resume';
+import Credentials from './pages/Credentials';
 import { useTheme } from './hooks/useTheme';
 
 function ScrollToTop() {
@@ -26,6 +27,7 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/resume" element={<Resume />} />
+        <Route path="/credentials" element={<Credentials />} />
       </Routes>
       {!isResume && <Footer />}
       <BackToTop />

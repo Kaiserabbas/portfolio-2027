@@ -1,12 +1,27 @@
 import { landscapeSkills, techSkills, techStack } from '../../data/skills';
 import SkillBar from '../ui/SkillBar';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
+import {
+  RiCodeSSlashLine, RiDatabase2Line, RiRobotLine, RiPaletteLine,
+} from 'react-icons/ri';
 
 const tagColors = {
-  blue: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400',
-  green: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400',
-  purple: 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400',
-  orange: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400',
+  blue: {
+    icon: RiCodeSSlashLine,
+    styles: 'bg-sky-50 text-sky-800 ring-sky-200/80 hover:bg-sky-100 dark:bg-sky-950/40 dark:text-sky-300 dark:ring-sky-900',
+  },
+  green: {
+    icon: RiDatabase2Line,
+    styles: 'bg-emerald-50 text-emerald-800 ring-emerald-200/80 hover:bg-emerald-100 dark:bg-emerald-950/40 dark:text-emerald-300 dark:ring-emerald-900',
+  },
+  purple: {
+    icon: RiRobotLine,
+    styles: 'bg-violet-50 text-violet-800 ring-violet-200/80 hover:bg-violet-100 dark:bg-violet-950/40 dark:text-violet-300 dark:ring-violet-900',
+  },
+  orange: {
+    icon: RiPaletteLine,
+    styles: 'bg-amber-50 text-amber-800 ring-amber-200/80 hover:bg-amber-100 dark:bg-amber-950/40 dark:text-amber-300 dark:ring-amber-900',
+  },
 };
 
 export default function Skills() {
@@ -52,21 +67,34 @@ export default function Skills() {
         </div>
 
         {/* Tech Stack */}
-        <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm border border-gray-100 dark:border-gray-700">
-          <h3 className="text-xl font-bold mb-8 text-center text-gray-900 dark:text-white">Technology Stack</h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {Object.entries(techStack).map(([category, { tags, color }]) => (
-              <div key={category} className="text-center">
-                <p className="font-semibold text-gray-800 dark:text-gray-200 mb-4 text-sm uppercase tracking-wider">{category}</p>
-                <div className="flex flex-wrap gap-2 justify-center">
-                  {tags.map(tag => (
-                    <span key={tag} className={`px-3 py-1.5 rounded-lg text-sm font-medium ${tagColors[color]}`}>
-                      {tag}
+        <div className="overflow-hidden rounded-3xl border border-emerald-100 bg-gradient-to-br from-white via-white to-emerald-50/70 p-5 shadow-sm dark:border-gray-700 dark:from-gray-800 dark:via-gray-800 dark:to-emerald-950/20 sm:p-8">
+          <div className="mb-8 text-center">
+            <p className="mb-2 text-xs font-bold uppercase tracking-[0.22em] text-emerald-700 dark:text-emerald-400">Tools of the trade</p>
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Technology Stack</h3>
+            <p className="mx-auto mt-2 max-w-xl text-sm text-gray-500 dark:text-gray-400">A practical toolkit for building useful, reliable digital experiences.</p>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {Object.entries(techStack).map(([category, { tags, color }]) => {
+              const { icon: CategoryIcon, styles } = tagColors[color];
+              return (
+                <div key={category} className="rounded-2xl border border-gray-100 bg-white/80 p-4 dark:border-gray-700 dark:bg-gray-900/50 sm:p-5">
+                  <div className="mb-4 flex items-center gap-3">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300">
+                      <CategoryIcon size={20} />
                     </span>
-                  ))}
+                    <p className="text-sm font-bold leading-tight text-gray-800 dark:text-gray-100">{category}</p>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {tags.map(tag => (
+                      <span key={tag} className={`inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-semibold ring-1 ring-inset transition-colors ${styles}`}>
+                        <CategoryIcon size={13} aria-hidden="true" />
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

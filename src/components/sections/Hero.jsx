@@ -75,19 +75,22 @@ export default function Hero() {
           </div>
 
           {/* Right: Service Icons Grid */}
-          <div className="grid grid-cols-2 gap-4 animate-[fadeInUp_0.7s_ease-out_0.2s_forwards] opacity-0">
-            {SERVICE_ICONS.map(({ icon: Icon, label, sub }) => (
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 animate-[fadeInUp_0.7s_ease-out_0.2s_forwards] opacity-0">
+            {SERVICE_ICONS.map(({ icon: Icon, label, sub }, index) => (
               <div
                 key={label}
-                className="group bg-gradient-to-b from-emerald-50/50 via-white to-emerald-50/20 dark:from-emerald-950/20 dark:via-gray-900 dark:to-emerald-950/10 border-2 border-emerald-100/80 dark:border-emerald-900/40 hover:border-emerald-400/80 dark:hover:border-emerald-600/70 rounded-2xl p-6 sm:p-7 text-center hover:shadow-xl hover:shadow-emerald-900/5 dark:hover:shadow-emerald-950/30 hover:-translate-y-1 transition-all duration-300 cursor-default"
+                className="group relative overflow-hidden rounded-2xl border border-emerald-100 bg-white/90 p-4 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-emerald-300 hover:shadow-xl hover:shadow-emerald-950/10 dark:border-emerald-900/60 dark:bg-gray-900/80 dark:hover:border-emerald-700 sm:p-6"
               >
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white flex items-center justify-center mx-auto mb-3.5 shadow-md shadow-emerald-600/20 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-emerald-600/30 transition-all duration-300">
+                <span className="absolute right-4 top-3 text-[10px] font-bold tracking-[0.2em] text-emerald-700/35 dark:text-emerald-300/30">
+                  0{index + 1}
+                </span>
+                <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-700 to-teal-500 text-white shadow-lg shadow-emerald-800/20 transition-transform duration-300 group-hover:scale-110 sm:h-14 sm:w-14">
                   <Icon size={30} />
                 </div>
-                <p className="font-bold text-gray-900 dark:text-white text-sm sm:text-base group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">
+                <p className="text-sm font-bold leading-snug text-gray-900 transition-colors group-hover:text-emerald-700 dark:text-white dark:group-hover:text-emerald-300 sm:text-base">
                   {label}
                 </p>
-                <p className="text-xs text-emerald-800/70 dark:text-emerald-400/80 font-medium mt-1">
+                <p className="mt-1.5 text-[11px] font-medium leading-snug text-gray-500 dark:text-gray-400 sm:text-xs">
                   {sub}
                 </p>
               </div>

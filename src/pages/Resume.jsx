@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  RiDownloadLine, RiArrowLeftLine, RiExternalLinkLine,
-  RiPrinterLine, RiEyeLine,
+  RiDownloadLine, RiArrowLeftLine, RiExternalLinkLine, RiPrinterLine, RiEyeLine,
 } from 'react-icons/ri';
 
 const RESUME_PDF = '/resume/Qaisar-Abbas-Resume.pdf';
@@ -22,13 +21,14 @@ export default function Resume() {
               className="flex items-center gap-2 text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition"
             >
               <RiArrowLeftLine size={18} />
-              Back to Portfolio
+              <span className="hidden sm:inline">Back to Portfolio</span>
+              <span className="sm:hidden">Back</span>
             </Link>
             <span className="text-gray-300 dark:text-gray-600">|</span>
             <div className="flex items-center gap-2">
               <RiEyeLine className="text-primary-500" size={16} />
               <span className="text-sm font-semibold text-gray-800 dark:text-gray-200">
-                Resume: Qaisar Abbas
+                Qaisar Abbas · Resume
               </span>
             </div>
           </div>
@@ -46,7 +46,7 @@ export default function Resume() {
               href={RESUME_PDF}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition"
+              className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition"
             >
               <RiExternalLinkLine size={15} />
               Open Tab
@@ -57,7 +57,8 @@ export default function Resume() {
               className="cta-btn text-xs px-4 py-2"
             >
               <RiDownloadLine size={15} />
-              Download CV
+              <span className="hidden sm:inline">Download CV</span>
+              <span className="sm:hidden">Download</span>
             </a>
           </div>
         </div>
@@ -75,13 +76,15 @@ export default function Resume() {
           )}
 
           <iframe
-            src={`${RESUME_PDF}#toolbar=0&navpanes=0&scrollbar=1`}
+            src={`${RESUME_PDF}#view=FitH`}
             title="Qaisar Abbas Resume"
             className="w-full border-0"
             style={{
-              height: '85vh',
+              height: 'min(85vh, 1100px)',
+              minHeight: '65vh',
               display: loaded ? 'block' : 'none',
             }}
+            loading="lazy"
             onLoad={() => setLoaded(true)}
           />
         </div>

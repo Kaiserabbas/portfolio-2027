@@ -25,6 +25,7 @@ export const education = [
     year: '2023',
     description: 'Intensive coding bootcamp specializing in full-stack web development, React, Node.js, and modern JavaScript frameworks.',
     color: 'purple',
+    credentialUrl: 'https://www.credential.net/773f07aa-a60e-4f81-b02f-b23953166504#gs.566oes',
   },
   {
     id: 4,

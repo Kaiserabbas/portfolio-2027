@@ -20,7 +20,8 @@ import {
   RiCheckboxCircleLine,
   RiExternalLinkLine,
   RiSendPlaneLine,
-  RiNetflixLine,
+  RiNotificationLine,
+  RiArrowRightLine,
 } from 'react-icons/ri';
 import { useAdminAuth } from '../hooks/useAdminAuth';
 import { useFontPreset, FONT_PRESETS } from '../hooks/useFontPreset';
@@ -115,8 +116,24 @@ function Toast({ message, type = 'success', onClose }) {
 }
 
 // ─── Font Selector ─────────────────────────────────────────────────
-function FontSection() {
+function FontSection({ onTrackChange }) {
   const { activePresetId, setPreset, resetFont } = useFontPreset();
+
+  const handleSelect = (id) => {
+    if (activePresetId === id) {
+      resetFont();
+      onTrackChange('font', 'Reset font to default (Inter)');
+    } else {
+      setPreset(id);
+      const preset = FONT_PRESETS.find(p => p.id === id);
+      onTrackChange('font', `Changed font style to ${preset ? preset.label : id}`);
+    }
+  };
+
+  const handleReset = () => {
+    resetFont();
+    onTrackChange('font', 'Reset font to default (Inter)');
+  };
 
   return (
     <SectionCard title="Font Style" icon={RiPaletteLine}>
@@ -129,7 +146,7 @@ function FontSection() {
           return (
             <button
               key={preset.id}
-              onClick={() => active ? resetFont() : setPreset(preset.id)}
+              onClick={() => handleSelect(preset.id)}
               className={`text-left p-4 rounded-xl border-2 transition-all duration-200 ${
                 active
                   ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/30'
@@ -152,7 +169,7 @@ function FontSection() {
         })}
       </div>
       {activePresetId && (
-        <button onClick={resetFont} className="flex items-center gap-2 text-xs font-medium text-gray-400 hover:text-red-500 transition">
+        <button onClick={handleReset} className="flex items-center gap-2 text-xs font-medium text-gray-400 hover:text-red-500 transition">
           <RiRefreshLine size={14} /> Reset to Default (Inter)
         </button>
       )}
@@ -168,11 +185,21 @@ const EMPTY_PROJECT = {
   duration: '', year: '', result: '', tags: '', tech: '',
 };
 
-function AddProjectSection({ onToast }) {
+function AddProjectSection({ onToast, onTrackChange, onClearChange }) {
   const [form, setForm]       = useState(EMPTY_PROJECT);
   const [committing, setCommitting] = useState(false);
 
-  const up = (k, v) => setForm(f => ({ ...f, [k]: v }));
+  const up = (k, v) => {
+    setForm(f => {
+      const next = { ...f, [k]: v };
+      if (next.title.trim()) {
+        onTrackChange('project', `Draft project: "${next.title.trim()}"`);
+      } else {
+        onClearChange('project');
+      }
+      return next;
+    });
+  };
 
   const buildEntry = () => ({
     id: Date.now(),
@@ -212,6 +239,7 @@ function AddProjectSection({ onToast }) {
         [{ path: 'src/data/admin-additions.json', content: JSON.stringify(current, null, 2) }]
       );
       onToast(`"${form.title}" committed! Netlify will rebuild in ~60s.`, 'success');
+      onClearChange('project');
       setForm(EMPTY_PROJECT);
     } catch (err) {
       onToast(`Error: ${err.message}`, 'error');
@@ -295,10 +323,20 @@ const EMPTY_CERT = {
   icon: 'code', link: '', imageUrl: '',
 };
 
-function AddCredentialSection({ onToast }) {
+function AddCredentialSection({ onToast, onTrackChange, onClearChange }) {
   const [form, setForm]       = useState(EMPTY_CERT);
   const [committing, setCommitting] = useState(false);
-  const up = (k, v) => setForm(f => ({ ...f, [k]: v }));
+  const up = (k, v) => {
+    setForm(f => {
+      const next = { ...f, [k]: v };
+      if (next.title.trim()) {
+        onTrackChange('credential', `Draft credential: "${next.title.trim()}"`);
+      } else {
+        onClearChange('credential');
+      }
+      return next;
+    });
+  };
 
   const handleCommit = async (e) => {
     e.preventDefault();
@@ -316,6 +354,7 @@ function AddCredentialSection({ onToast }) {
         [{ path: 'src/data/admin-additions.json', content: JSON.stringify(current, null, 2) }]
       );
       onToast(`"${form.title}" committed! Netlify will rebuild in ~60s.`, 'success');
+      onClearChange('credential');
       setForm(EMPTY_CERT);
     } catch (err) {
       onToast(`Error: ${err.message}`, 'error');
@@ -384,9 +423,15 @@ const profileData = {
   availability: 'Available for projects in Gulf & Remote',
 };
 
-function ProfileSection({ onToast }) {
+function ProfileSection({ onToast, onTrackChange }) {
   const [form, setForm] = useState(profileData);
-  const up = (k, v) => setForm(f => ({ ...f, [k]: v }));
+  const up = (k, v) => {
+    setForm(f => {
+      const next = { ...f, [k]: v };
+      onTrackChange('profile', 'Modified profile/contact details');
+      return next;
+    });
+  };
 
   const handleCopy = () => {
     navigator.clipboard.writeText(JSON.stringify(form, null, 2))
@@ -416,23 +461,30 @@ function ProfileSection({ onToast }) {
 }
 
 // ─── GitHub Push — simple commit message only ──────────────────────
-function GitHubSection({ onToast }) {
-  const [commitMsg, setCommitMsg] = useState('');
+function GitHubSection({ onToast, initialMsg = '', onClearChanges }) {
+  const [commitMsg, setCommitMsg] = useState(initialMsg || '');
   const [pushing, setPushing]     = useState(false);
   const [lastCommit, setLastCommit] = useState(null);
 
+  // Update commitMsg if initialMsg changes and current input is empty
+  useState(() => {
+    if (initialMsg && !commitMsg) setCommitMsg(initialMsg);
+  });
+
   const push = async () => {
-    if (!commitMsg.trim()) { onToast('Enter a commit message.', 'error'); return; }
+    const msg = commitMsg.trim() || initialMsg.trim();
+    if (!msg) { onToast('Enter a commit message.', 'error'); return; }
     setPushing(true);
     try {
       // This commits a small timestamp file to trigger Netlify rebuild
-      const content = `Last admin push: ${new Date().toISOString()}\nMessage: ${commitMsg}\n`;
-      const result = await commitToGitHub(commitMsg, [
+      const content = `Last admin push: ${new Date().toISOString()}\nMessage: ${msg}\n`;
+      const result = await commitToGitHub(msg, [
         { path: 'admin-push.txt', content },
       ]);
       setLastCommit(result.commitUrl);
       onToast('Pushed to GitHub! Netlify will rebuild in ~60s.', 'success');
       setCommitMsg('');
+      if (onClearChanges) onClearChanges();
     } catch (err) {
       onToast(`Push failed: ${err.message}`, 'error');
     }
@@ -557,11 +609,34 @@ export default function AdminPanel() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('font');
   const [toast, setToast] = useState({ message: '', type: 'success' });
+  const [pendingChanges, setPendingChanges] = useState({});
 
   const showToast = (message, type = 'success') => {
     setToast({ message, type });
     setTimeout(() => setToast({ message: '', type: 'success' }), 5000);
   };
+
+  const trackChange = (key, desc) => {
+    setPendingChanges(prev => ({ ...prev, [key]: desc }));
+  };
+
+  const clearChange = (key) => {
+    setPendingChanges(prev => {
+      const next = { ...prev };
+      delete next[key];
+      return next;
+    });
+  };
+
+  const clearAllChanges = () => {
+    setPendingChanges({});
+  };
+
+  const pendingList = Object.values(pendingChanges);
+  const hasPending = pendingList.length > 0;
+  const suggestedMsg = hasPending
+    ? `feat: ${pendingList.join(', ')}`
+    : 'feat: update portfolio content via admin panel';
 
   if (!isAuthenticated) {
     return (
@@ -603,6 +678,41 @@ export default function AdminPanel() {
         </div>
       </div>
 
+      {/* Reminder Banner for Unpushed Changes */}
+      {hasPending && (
+        <div className="bg-amber-500/10 border-b border-amber-500/30 text-amber-900 dark:text-amber-200 px-4 sm:px-6 py-3 transition-all animate-[fadeIn_0.3s_ease-out]">
+          <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5">
+            <div className="flex items-center gap-2.5 text-xs sm:text-sm font-medium">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500"></span>
+              </span>
+              <RiNotificationLine size={16} className="text-amber-600 dark:text-amber-400 shrink-0" />
+              <span>
+                <strong>Reminder:</strong> You have uncommitted changes ({pendingList.length}):{' '}
+                <span className="italic">{pendingList.join(' • ')}</span>
+              </span>
+            </div>
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                onClick={() => setActiveTab('github')}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-white bg-amber-600 hover:bg-amber-700 dark:bg-amber-500 dark:hover:bg-amber-600 transition shadow-sm"
+              >
+                <span>Push to GitHub</span>
+                <RiArrowRightLine size={14} />
+              </button>
+              <button
+                onClick={clearAllChanges}
+                className="text-xs text-amber-700 dark:text-amber-400 hover:underline px-1 py-1"
+                title="Dismiss reminder"
+              >
+                Dismiss
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Title */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-4">
         <h1 className="text-2xl font-extrabold text-gray-900 dark:text-white">Portfolio Control Panel</h1>
@@ -619,15 +729,21 @@ export default function AdminPanel() {
         <div className="flex flex-wrap gap-2">
           {TABS.map((tab) => {
             const Icon = tab.icon;
+            const isGitHubTab = tab.id === 'github';
             return (
               <button key={tab.id} onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
+                className={`relative flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
                   activeTab === tab.id
                     ? 'bg-emerald-600 text-white shadow-sm'
                     : 'bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800'
                 }`}>
                 <Icon size={14} />
-                {tab.label}
+                <span>{tab.label}</span>
+                {isGitHubTab && hasPending && (
+                  <span className="ml-1 px-1.5 py-0.2 rounded-full text-2xs font-extrabold bg-amber-500 text-white animate-pulse">
+                    {pendingList.length}
+                  </span>
+                )}
               </button>
             );
           })}
@@ -636,11 +752,11 @@ export default function AdminPanel() {
 
       {/* Content */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        {activeTab === 'font'       && <FontSection />}
-        {activeTab === 'project'    && <AddProjectSection onToast={showToast} />}
-        {activeTab === 'credential' && <AddCredentialSection onToast={showToast} />}
-        {activeTab === 'profile'    && <ProfileSection onToast={showToast} />}
-        {activeTab === 'github'     && <GitHubSection onToast={showToast} />}
+        {activeTab === 'font'       && <FontSection onTrackChange={trackChange} />}
+        {activeTab === 'project'    && <AddProjectSection onToast={showToast} onTrackChange={trackChange} onClearChange={clearChange} />}
+        {activeTab === 'credential' && <AddCredentialSection onToast={showToast} onTrackChange={trackChange} onClearChange={clearChange} />}
+        {activeTab === 'profile'    && <ProfileSection onToast={showToast} onTrackChange={trackChange} />}
+        {activeTab === 'github'     && <GitHubSection onToast={showToast} initialMsg={suggestedMsg} onClearChanges={clearAllChanges} />}
         {activeTab === 'tips'       && <QuickTipsSection />}
       </div>
 

@@ -15,6 +15,8 @@ import {
 } from 'react-icons/ri';
 import ThemeToggle from '../ui/ThemeToggle';
 import { useActiveSection } from '../../hooks/useScrollAnimation';
+import { useAdminAuth } from '../../hooks/useAdminAuth';
+import { AdminLockButton, AdminLoginModal, AdminActiveBadge } from '../admin/AdminAuth';
 
 const NAV_LINKS = [
   { href: '#projects', label: 'Projects', icon: RiFolderLine },
@@ -31,7 +33,9 @@ const SECTION_IDS = ['projects', 'services', 'skills', 'about', 'experience', 'c
 export default function Navbar({ isDark, toggleTheme }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [showAdminLogin, setShowAdminLogin] = useState(false);
   const activeSection = useActiveSection(SECTION_IDS);
+  const { isAuthenticated, logout } = useAdminAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === '/';
@@ -63,6 +67,7 @@ export default function Navbar({ isDark, toggleTheme }) {
   };
 
   return (
+    <>
     <header className={`sticky top-0 z-50 transition-all duration-300 ${
       scrolled
         ? 'bg-white/95 dark:bg-gray-950/95 backdrop-blur-xl shadow-sm border-b border-gray-200/80 dark:border-gray-800'
@@ -110,6 +115,13 @@ export default function Navbar({ isDark, toggleTheme }) {
           {/* Right Action Items */}
           <div className="hidden lg:flex items-center gap-2.5">
             <ThemeToggle isDark={isDark} toggle={toggleTheme} />
+
+            {/* Admin Controls */}
+            {isAuthenticated ? (
+              <AdminActiveBadge onLogout={logout} />
+            ) : (
+              <AdminLockButton onOpen={() => setShowAdminLogin(true)} />
+            )}
 
             <Link
               to="/resume"
@@ -197,5 +209,14 @@ export default function Navbar({ isDark, toggleTheme }) {
         </div>
       )}
     </header>
+
+    {/* Admin Login Modal */}
+    {showAdminLogin && (
+      <AdminLoginModal
+        onClose={() => setShowAdminLogin(false)}
+        onSuccess={() => setShowAdminLogin(false)}
+      />
+    )}
+  </>
   );
 }

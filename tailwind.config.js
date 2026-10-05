@@ -30,6 +30,7 @@ export default {
         'spin-slow': 'spin 8s linear infinite',
         'pulse-slow': 'pulse 3s infinite',
         'typewriter': 'typing 3.5s steps(40) infinite',
+        'wiggle': 'wiggle 0.5s ease-in-out',
       },
       keyframes: {
         fadeInUp: {
@@ -39,6 +40,15 @@ export default {
         fadeIn: {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
+        },
+        wiggle: {
+          '0%, 100%': { transform: 'translateX(0)' },
+          '15%': { transform: 'translateX(-8px)' },
+          '30%': { transform: 'translateX(8px)' },
+          '45%': { transform: 'translateX(-6px)' },
+          '60%': { transform: 'translateX(6px)' },
+          '75%': { transform: 'translateX(-3px)' },
+          '90%': { transform: 'translateX(3px)' },
         },
       },
       backgroundImage: {

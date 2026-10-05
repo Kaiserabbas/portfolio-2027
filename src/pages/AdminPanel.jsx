@@ -455,15 +455,41 @@ function ProfileSection({ onToast }) {
 }
 
 // ─── GitHub Commit Section ─────────────────────────────────────────
+const GH_PAT_KEY = 'qaisar_gh_pat';
+
 function GitHubSection({ onToast }) {
-  const [token, setToken] = useState(() => sessionStorage.getItem('gh_pat') || '');
+  const [token, setToken] = useState(() =>
+    localStorage.getItem(GH_PAT_KEY) || sessionStorage.getItem('gh_pat') || ''
+  );
+  const [rememberToken, setRememberToken] = useState(() => !!localStorage.getItem(GH_PAT_KEY));
   const [commitMsg, setCommitMsg] = useState('');
   const [pushing, setPushing] = useState(false);
   const [showToken, setShowToken] = useState(false);
+  const [showGuide, setShowGuide] = useState(false);
+  const [tokenSaved, setTokenSaved] = useState(!!localStorage.getItem(GH_PAT_KEY));
 
   const saveToken = () => {
-    sessionStorage.setItem('gh_pat', token);
-    onToast('GitHub token saved for this session.', 'success');
+    if (!token.trim()) { onToast('Enter a token first.', 'error'); return; }
+    if (rememberToken) {
+      localStorage.setItem(GH_PAT_KEY, token);
+      sessionStorage.removeItem('gh_pat');
+      setTokenSaved(true);
+      onToast('Token saved permanently to this browser.', 'success');
+    } else {
+      sessionStorage.setItem('gh_pat', token);
+      localStorage.removeItem(GH_PAT_KEY);
+      setTokenSaved(false);
+      onToast('Token saved for this session only.', 'success');
+    }
+  };
+
+  const clearToken = () => {
+    localStorage.removeItem(GH_PAT_KEY);
+    sessionStorage.removeItem('gh_pat');
+    setToken('');
+    setTokenSaved(false);
+    setRememberToken(false);
+    onToast('Token cleared.', 'success');
   };
 
   const pushCommit = async () => {
@@ -472,20 +498,16 @@ function GitHubSection({ onToast }) {
     setPushing(true);
 
     try {
-      // Trigger a GitHub Actions workflow dispatch or just validate the token
-      // Since this is a static SPA we can only use GitHub REST API to push
-      // We'll call the GitHub API to get the current commit SHA and trigger a dispatch
       const owner = 'Kaiserabbas';
       const repo = 'portfolio-2027';
-      const branch = 'main';
 
-      // Verify token
+      // Verify token first
       const meRes = await fetch('https://api.github.com/user', {
         headers: { Authorization: `Bearer ${token}`, 'User-Agent': 'portfolio-admin' },
       });
-      if (!meRes.ok) throw new Error('Invalid GitHub token');
+      if (!meRes.ok) throw new Error('Invalid GitHub token. Please check and re-save it.');
 
-      // Try to trigger a repository_dispatch event so a GitHub Action can run a commit
+      // Trigger repository_dispatch event
       const dispatchRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/dispatches`, {
         method: 'POST',
         headers: {
@@ -499,12 +521,11 @@ function GitHubSection({ onToast }) {
         }),
       });
 
-      if (dispatchRes.status === 204 || dispatchRes.ok) {
-        onToast('Repository dispatch triggered! Check GitHub Actions for the commit.', 'success');
+      if (dispatchRes.status === 204) {
+        onToast('GitHub dispatch triggered! Check Actions tab for the commit.', 'success');
         setCommitMsg('');
       } else {
-        // fallback - just notify
-        onToast(`GitHub token is valid. Dispatch returned ${dispatchRes.status}. Commit manually via git.`, 'error');
+        onToast(`Token valid but dispatch returned ${dispatchRes.status}. Use terminal git commands below.`, 'error');
       }
     } catch (err) {
       onToast(`Error: ${err.message}`, 'error');
@@ -514,57 +535,123 @@ function GitHubSection({ onToast }) {
 
   return (
     <SectionCard title="GitHub Commit & Push" icon={RiGithubLine}>
-      <p className="text-xs text-gray-500 dark:text-gray-400">
-        Enter your GitHub Personal Access Token (PAT) with <strong>repo</strong> scope. The token is kept in session only (cleared on tab close).
-        After making changes via the clipboard workflow above, you can trigger a repository_dispatch event, or simply open a terminal and run <code className="bg-gray-100 dark:bg-gray-800 px-1 rounded">git add . && git commit -m "..." && git push</code>.
-      </p>
 
-      <Field label="GitHub PAT (repo scope required)" hint="Never stored permanently - session only">
+      {/* How to get a token guide */}
+      <div className="rounded-xl border border-blue-200 dark:border-blue-900 bg-blue-50 dark:bg-blue-950/30 overflow-hidden">
+        <button
+          onClick={() => setShowGuide(v => !v)}
+          className="w-full flex items-center justify-between px-4 py-3 text-xs font-semibold text-blue-700 dark:text-blue-300 hover:bg-blue-100/50 dark:hover:bg-blue-900/30 transition"
+        >
+          <span>📖 How to get a GitHub Personal Access Token</span>
+          <span>{showGuide ? '▲' : '▼'}</span>
+        </button>
+        {showGuide && (
+          <div className="px-4 pb-4 space-y-2 text-xs text-blue-800 dark:text-blue-200">
+            <ol className="list-decimal list-inside space-y-1.5 leading-relaxed">
+              <li>Go to <a href="https://github.com/settings/tokens" target="_blank" rel="noopener noreferrer" className="underline font-semibold">github.com/settings/tokens</a></li>
+              <li>Click your <strong>profile picture</strong> (top-right) → <strong>Settings</strong></li>
+              <li>Scroll down → <strong>Developer settings</strong> (left sidebar, very bottom)</li>
+              <li><strong>Personal access tokens</strong> → <strong>Tokens (classic)</strong></li>
+              <li>Click <strong>"Generate new token (classic)"</strong></li>
+              <li>Name: <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">Portfolio Admin</code></li>
+              <li>Expiration: <strong>No expiration</strong></li>
+              <li>Check scope: ✅ <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">repo</code> (full control of private repositories)</li>
+              <li>Click <strong>"Generate token"</strong> → <strong>Copy immediately</strong> (shown only once!)</li>
+              <li>Paste it below and click <strong>"Save Token"</strong></li>
+            </ol>
+          </div>
+        )}
+      </div>
+
+      {/* Token saved indicator */}
+      {tokenSaved && (
+        <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 text-xs text-emerald-700 dark:text-emerald-400 font-medium">
+          <RiCheckboxCircleLine size={15} />
+          Token saved permanently in this browser
+          <button onClick={clearToken} className="ml-auto text-red-500 hover:text-red-700 dark:hover:text-red-400 underline font-medium">
+            Remove
+          </button>
+        </div>
+      )}
+
+      <Field label="GitHub PAT (repo scope required)">
         <div className="relative">
           <input
             type={showToken ? 'text' : 'password'}
             value={token}
-            onChange={e => setToken(e.target.value)}
+            onChange={e => { setToken(e.target.value); setTokenSaved(false); }}
             placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
             className="w-full px-3.5 py-2.5 pr-10 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition"
           />
-          <button type="button" onClick={() => setShowToken(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700 dark:hover:text-white">
+          <button
+            type="button"
+            onClick={() => setShowToken(v => !v)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700 dark:hover:text-white"
+          >
             {showToken ? <RiEyeOffLine size={15} /> : <RiEyeLine size={15} />}
           </button>
         </div>
       </Field>
 
-      <button onClick={saveToken} className="text-xs font-medium text-emerald-600 dark:text-emerald-400 hover:underline">
-        Save token for session
-      </button>
+      {/* Remember toggle */}
+      <label className="flex items-center gap-2.5 cursor-pointer group">
+        <div
+          onClick={() => setRememberToken(v => !v)}
+          className={`w-10 h-5 rounded-full transition-colors duration-200 flex items-center px-0.5 ${rememberToken ? 'bg-emerald-500' : 'bg-gray-300 dark:bg-gray-600'}`}
+        >
+          <div className={`w-4 h-4 rounded-full bg-white shadow transition-transform duration-200 ${rememberToken ? 'translate-x-5' : 'translate-x-0'}`} />
+        </div>
+        <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
+          Remember permanently (saved in browser localStorage)
+        </span>
+      </label>
 
-      <Field label="Commit Message">
-        <Input value={commitMsg} onChange={e => setCommitMsg(e.target.value)} placeholder="feat: add new project via admin panel" />
-      </Field>
-
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-2">
         <button
-          onClick={pushCommit}
-          disabled={pushing}
-          className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold text-white bg-gray-900 dark:bg-gray-700 hover:bg-gray-800 transition shadow-sm disabled:opacity-60"
+          onClick={saveToken}
+          className="flex items-center gap-2 px-5 py-2 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-emerald-700 to-teal-600 hover:from-emerald-800 hover:to-teal-700 transition shadow-sm"
         >
-          {pushing ? <RiLoaderLine size={16} className="animate-spin" /> : <RiGithubLine size={16} />}
-          Trigger GitHub Dispatch
+          <RiSaveLine size={14} /> Save Token
         </button>
+        {token && (
+          <button
+            onClick={clearToken}
+            className="flex items-center gap-2 px-5 py-2 rounded-xl text-xs font-semibold text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800 hover:bg-red-50 dark:hover:bg-red-950/20 transition"
+          >
+            Clear Token
+          </button>
+        )}
+      </div>
 
-        <a
-          href="https://github.com/Kaiserabbas/portfolio-2027"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition"
-        >
-          <RiExternalLinkLine size={16} /> Open Repo on GitHub
-        </a>
+      <div className="border-t border-gray-100 dark:border-gray-800 pt-4">
+        <Field label="Commit Message">
+          <Input value={commitMsg} onChange={e => setCommitMsg(e.target.value)} placeholder="feat: add new project via admin panel" />
+        </Field>
+
+        <div className="flex flex-wrap gap-3 mt-3">
+          <button
+            onClick={pushCommit}
+            disabled={pushing}
+            className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold text-white bg-gray-900 dark:bg-gray-700 hover:bg-gray-800 transition shadow-sm disabled:opacity-60"
+          >
+            {pushing ? <RiLoaderLine size={16} className="animate-spin" /> : <RiGithubLine size={16} />}
+            Trigger GitHub Dispatch
+          </button>
+
+          <a
+            href="https://github.com/Kaiserabbas/portfolio-2027"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition"
+          >
+            <RiExternalLinkLine size={16} /> Open Repo on GitHub
+          </a>
+        </div>
       </div>
 
       {/* Quick Git Commands */}
-      <div className="mt-2 p-4 rounded-xl bg-gray-900 dark:bg-gray-950 text-xs font-mono text-green-400 space-y-1 border border-gray-700">
-        <p className="text-gray-500 mb-2"># Quick terminal commands:</p>
+      <div className="p-4 rounded-xl bg-gray-900 dark:bg-gray-950 text-xs font-mono text-green-400 space-y-1 border border-gray-700">
+        <p className="text-gray-500 mb-2"># Alternative: quick terminal commands</p>
         <p>git add .</p>
         <p>git commit -m &quot;your message&quot;</p>
         <p>git push origin main</p>

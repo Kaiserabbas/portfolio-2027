@@ -1,4 +1,6 @@
-export const certifications = [
+import adminAdditions from './admin-additions.json';
+
+const staticCertifications = [
   // --- Microverse Software Engineering Credentials ---
   {
     id: 'fullstack-web-dev',
@@ -202,4 +204,10 @@ export const certifications = [
     icon: 'id-card',
     verified: true,
   },
+];
+
+// Merge admin-panel-added certifications
+export const certifications = [
+  ...staticCertifications,
+  ...(adminAdditions.certifications || []),
 ];

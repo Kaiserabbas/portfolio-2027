@@ -2,8 +2,9 @@
 //  LOCAL photos from G:/My Drive/PHOTOS  ➜  /images/projects/
 //  Unsplash used for clients without local photo folders
 // ─────────────────────────────────────────────────────────────────
+import adminAdditions from './admin-additions.json';
 
-export const projects = [
+const staticProjects = [
 
   // ═══════════════════════════════════════════════════════════════
   //  MAJOR LANDMARK & CORPORATE LANDSCAPE PROJECTS
@@ -624,3 +625,8 @@ export const projects = [
   },
 ];
 
+// Merge admin-panel-added projects (from admin-additions.json committed via GitHub API)
+export const projects = [
+  ...staticProjects,
+  ...(adminAdditions.projects || []),
+];

@@ -25,7 +25,7 @@ const GH = (path, options = {}) =>
     },
   });
 
-exports.handler = async (event) => {
+export const handler = async (event) => {
   // CORS headers for browser calls
   const cors = {
     'Access-Control-Allow-Origin': '*',
